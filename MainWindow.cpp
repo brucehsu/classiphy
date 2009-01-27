@@ -39,6 +39,7 @@ MainWindow::MainWindow() {
     this->show();
 
     picScroll->show();
+    picScroll->setAlignment(Qt::AlignCenter);
     picScroll->setWidget(image);
     image->setParent(picScroll);
     image->show();
@@ -63,4 +64,8 @@ void MainWindow::setDir(QString dirname) {
 void MainWindow::setImage() {
     QString path = dir->absolutePath() + "/" + list->currentItem()->text();
     image->setImage(path);
+}
+
+void MainWindow::resizeEvent(QResizeEvent *event) {
+    image->refresh();
 }

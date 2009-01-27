@@ -18,6 +18,9 @@
             MainWindow();
             ~MainWindow();
 
+        protected:
+            void resizeEvent(QResizeEvent*);
+
         private:
             NoSearchList *list;
             QPushButton *selectFolderBtn,*aboutBtn,*foldersWindowBtn;

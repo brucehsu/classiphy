@@ -7,6 +7,7 @@
 #include <QImage>
 #include <QPixmap>
 #include <QtPlugin>
+#include <QScrollArea>
 
 class ImageLabel : public QLabel
 {
@@ -14,6 +15,7 @@ class ImageLabel : public QLabel
         ImageLabel();
         void setImage(QString path);
         void clearImage();
+        void refresh();
 
     protected:
         void keyPressEvent(QKeyEvent*);

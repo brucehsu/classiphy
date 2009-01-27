@@ -218,7 +218,7 @@
     <value type="QString" >LOGONSERVER=\\TFCIS-03C8392D9</value>
     <value type="QString" >NUMBER_OF_PROCESSORS=2</value>
     <value type="QString" >OS=Windows_NT</value>
-    <value type="QString" >PATH=C:\MinGW\bin;C:\Qt\4.5.0-beta1\bin;C:\Perl\site\bin;C:\Perl\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\ATI Technologies\ATI.ACE\Core-Static</value>
+    <value type="QString" >PATH=C:\MinGW\bin;C:\Qt\4.5.0-beta1\bin;C:\Perl\site\bin;C:\Perl\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files\Git\cmd</value>
     <value type="QString" >PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH</value>
     <value type="QString" >PROCESSOR_ARCHITECTURE=x86</value>
     <value type="QString" >PROCESSOR_IDENTIFIER=x86 Family 6 Model 23 Stepping 10, GenuineIntel</value>
@@ -269,7 +269,7 @@
     <value type="QString" >LOGONSERVER=\\TFCIS-03C8392D9</value>
     <value type="QString" >NUMBER_OF_PROCESSORS=2</value>
     <value type="QString" >OS=Windows_NT</value>
-    <value type="QString" >PATH=C:\MinGW\bin;C:\Qt\4.5.0-beta1\bin;C:\Perl\site\bin;C:\Perl\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\ATI Technologies\ATI.ACE\Core-Static</value>
+    <value type="QString" >PATH=C:\MinGW\bin;C:\Qt\4.5.0-beta1\bin;C:\Perl\site\bin;C:\Perl\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files\Git\cmd</value>
     <value type="QString" >PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH</value>
     <value type="QString" >PROCESSOR_ARCHITECTURE=x86</value>
     <value type="QString" >PROCESSOR_IDENTIFIER=x86 Family 6 Model 23 Stepping 10, GenuineIntel</value>
