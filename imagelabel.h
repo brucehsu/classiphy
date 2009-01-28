@@ -16,10 +16,9 @@ class ImageLabel : public QLabel
         void setImage(QString path);
         void clearImage();
         void refresh();
+        void thumbSwitch();
 
     protected:
-        void keyPressEvent(QKeyEvent*);
-        //void resizeEvent(QResizeEvent*);
 
     private:
         bool isThumbnail;

@@ -8,11 +8,12 @@ MainWindow::MainWindow() {
     foldersWindowBtn = new QPushButton(QObject::trUtf8("Folders Window"));
     aboutBtn = new QPushButton(QObject::trUtf8("About"));
     picScroll = new QScrollArea();
-    //image = new PainterWidget();
     image = new ImageLabel();
     selectFolderDlg = new QFileDialog(this,QObject::trUtf8("Select a folder"));
+    aboutDlg = new AboutDialog();
     layout = new QGridLayout();
     dir = new QDir();
+    xmlManager = new XMLSettingsManager();
 
     //Arrange layout.
     layout->addWidget(picScroll,0,0,9,11);
@@ -31,6 +32,7 @@ MainWindow::MainWindow() {
     //Connect slots and signals.
     QObject::connect(selectFolderBtn,SIGNAL(clicked()),selectFolderDlg,SLOT(open()));
     QObject::connect(selectFolderDlg,SIGNAL(fileSelected(QString)),this,SLOT(setDir(QString)));
+    QObject::connect(aboutBtn,SIGNAL(clicked()),aboutDlg,SLOT(exec()));
     QObject::connect(list,SIGNAL(itemSelectionChanged()),this,SLOT(setImage()));
 
     this->setLayout(layout);
@@ -55,9 +57,14 @@ void MainWindow::setDir(QString dirname) {
     filter << "*.jpeg" << "*.jpg" << "*.gif" << "*.png" << "*.tiff";
     QStringList items = dir->entryList(filter,QDir::Files);
     int count = list->count();
+
+    //Pre-select the first item to avoid runtime error encounted when clearing the list.
+    list->setCurrentRow(0);
+    image->clearImage();
+
+    //Clear the list.
     for(int i=0;i<count;i++) list->takeItem(0);
     list->addItems(items);
-    image->clearImage();
     list->setCurrentRow(0);
 }
 
@@ -68,4 +75,19 @@ void MainWindow::setImage() {
 
 void MainWindow::resizeEvent(QResizeEvent *event) {
     image->refresh();
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event) {
+
+    switch(event->key()) {
+        case Qt::Key_Control:
+
+        case Qt::Key_T :
+            //Switch thumbnail mode on/off.
+            image->thumbSwitch();
+            image->refresh();
+            break;
+        default:
+            event->ignore();
+    }
 }

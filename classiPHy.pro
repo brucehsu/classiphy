@@ -17,9 +17,13 @@ TRANSLATIONS += classiPHy_lang.ts
 SOURCES += main.cpp \
     MainWindow.cpp \
     nosearchlist.cpp \
-    imagelabel.cpp
+    imagelabel.cpp \
+    aboutdialog.cpp \
+    xmlsettingsmanager.cpp
 HEADERS += MainWindow.h \
     const.h \
     nosearchlist.h \
-    imagelabel.h
+    imagelabel.h \
+    aboutdialog.h \
+    xmlsettingsmanager.h
 OTHER_FILES += classiPHy_lang.ts

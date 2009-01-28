@@ -10,12 +10,6 @@ ImageLabel::ImageLabel() {
     this->resize(0,0);
 }
 
-void ImageLabel::keyPressEvent(QKeyEvent *event) {
-    if(event->key()==Qt::Key_T) {
-        isThumbnail = !isThumbnail;
-    } else event->ignore();
-}
-
 void ImageLabel::setImage(QString path) {
     filename = path;
     pixmap.load(path);
@@ -32,7 +26,6 @@ void ImageLabel::setImage(QString path) {
 }
 
 void ImageLabel::clearImage() {
-    QScrollArea *scroll = (QScrollArea*) parent();
     this->setPixmap(NULL);
     this->resize(0,0);
     filename = "";
@@ -40,4 +33,8 @@ void ImageLabel::clearImage() {
 
 void ImageLabel::refresh() {
     if(filename!="") setImage(filename);
+}
+
+void ImageLabel::thumbSwitch() {
+    isThumbnail = !isThumbnail;
 }
