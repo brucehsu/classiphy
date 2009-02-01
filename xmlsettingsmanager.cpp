@@ -14,7 +14,6 @@ XMLSettingsManager::XMLSettingsManager() {
     QDomNode node = e.firstChild();
     delete docFile;
     docFile = new QFile("folder_settings.xml");
-    docFile->open(QIODevice::Truncate|QIODevice::ReadWrite);
 
 
     //Create document if it's an empty document.
@@ -172,8 +171,10 @@ void XMLSettingsManager::addProfile(QString name) {
         dir.appendChild(digits);
     }
     QString xml = xmlDoc->toString(4);
+    docFile->open(QIODevice::Truncate|QIODevice::ReadWrite);
     QTextStream in(docFile);
     in << xml;
+    docFile->close();
 }
 
 void XMLSettingsManager::editProfile(QString originName, QString name) {
@@ -190,8 +191,10 @@ void XMLSettingsManager::editProfile(QString originName, QString name) {
     }
     profile.setAttribute("name",name);
     QString xml = xmlDoc->toString(4);
+    docFile->open(QIODevice::Truncate|QIODevice::ReadWrite);
     QTextStream in(docFile);
     in << xml;
+    docFile->close();
 }
 
 void XMLSettingsManager::deleteProfile(QString name) {
@@ -208,6 +211,8 @@ void XMLSettingsManager::deleteProfile(QString name) {
     }
     root.removeChild(profile);
     QString xml = xmlDoc->toString(4);
+    docFile->open(QIODevice::Truncate|QIODevice::ReadWrite);
     QTextStream in(docFile);
     in << xml;
+    docFile->close();
 }
