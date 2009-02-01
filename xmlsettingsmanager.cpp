@@ -1,4 +1,5 @@
 #include "xmlsettingsmanager.h"
+#include <QMessageBox>
 
 XMLSettingsManager::XMLSettingsManager() {
     //Initialize objects
@@ -7,6 +8,7 @@ XMLSettingsManager::XMLSettingsManager() {
 
     //Set objects up
     docFile->open(QIODevice::ReadWrite);
+    docFile->close();
     xmlDoc->setContent(docFile);
     QDomElement e = xmlDoc->firstChildElement();
     QDomNode node = e.firstChild();
@@ -144,8 +146,11 @@ void XMLSettingsManager::setProfile(QString name) {
 }
 
 void XMLSettingsManager::addProfile(QString name) {
-    QDomElement root = xmlDoc->createElement("settings");
-    xmlDoc->appendChild(root);
+    QDomElement root;
+    if(xmlDoc->firstChild().isNull()) {
+        root = xmlDoc->createElement("settings");
+        xmlDoc->appendChild(root);
+    } else root = xmlDoc->firstChildElement();
     QDomElement profile = xmlDoc->createElement("profile");
     profile.setAttribute("name",name);
     root.appendChild(profile);
@@ -163,6 +168,32 @@ void XMLSettingsManager::addProfile(QString name) {
         dir.appendChild(digits);
     }
     QString xml = xmlDoc->toString(4);
+    docFile->open(QIODevice::Truncate|QIODevice::ReadWrite);
     QTextStream in(docFile);
     in << xml;
+    docFile->close();
+}
+
+void XMLSettingsManager::editProfile(QString originName, QString name) {
+
+}
+
+void XMLSettingsManager::deleteProfile(QString name) {
+    QDomElement root = xmlDoc->firstChild().toElement();
+    QDomNodeList nodes = root.elementsByTagName("profile");
+    QDomNode profile;
+
+    for(int i=0;i<nodes.size();i++) {
+        QDomElement temp = nodes.at(i).toElement();
+        if(temp.attribute("name")==name) {
+            profile = nodes.at(i);
+            break;
+        }
+    }
+    root.removeChild(profile);
+    QString xml = xmlDoc->toString(4);
+    docFile->open(QIODevice::Truncate|QIODevice::ReadWrite);
+    QTextStream in(docFile);
+    in << xml;
+    docFile->close();
 }
