@@ -6,7 +6,6 @@ TARGET = classiPHy
 CONFIG -= app_bundle
 CONFIG += moc
 CONFIG += static
-QMAKE_CXXFLAGS -= -mthread
 QMAKE_CXXFLAGS += -pipe \
     -O2
 QTPLUGIN += qjpeg \
@@ -19,11 +18,19 @@ SOURCES += main.cpp \
     nosearchlist.cpp \
     imagelabel.cpp \
     aboutdialog.cpp \
-    xmlsettingsmanager.cpp
+    xmlsettingsmanager.cpp \
+    folderswindow.cpp \
+    folderbutton.cpp \
+    foldersettingdialog.cpp \
+    profilelistdialog.cpp
 HEADERS += MainWindow.h \
     const.h \
     nosearchlist.h \
     imagelabel.h \
     aboutdialog.h \
-    xmlsettingsmanager.h
+    xmlsettingsmanager.h \
+    folderswindow.h \
+    folderbutton.h \
+    foldersettingdialog.h \
+    profilelistdialog.h
 OTHER_FILES += classiPHy_lang.ts

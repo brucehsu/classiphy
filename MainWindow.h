@@ -1,6 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#include <QMainWindow>
+#include <QApplication>
 #include <QGridLayout>
 #include <QListWidget>
 #include <QPushButton>
@@ -12,18 +12,20 @@
 #include "nosearchlist.h"
 #include "imagelabel.h"
 #include "aboutdialog.h"
-#include "xmlsettingsmanager.h"
+#include "folderswindow.h"
 
     class MainWindow : QWidget {
         Q_OBJECT
 
         public:
             MainWindow();
-            ~MainWindow();
+            //~MainWindow();
 
         protected:
             void resizeEvent(QResizeEvent*);
             void keyPressEvent(QKeyEvent*);
+            void keyReleaseEvent(QKeyEvent*);
+            void closeEvent(QCloseEvent*);
 
         private:
             NoSearchList *list;
@@ -34,7 +36,7 @@
             QDir *dir;
             ImageLabel *image;
             AboutDialog *aboutDlg;
-            XMLSettingsManager *xmlManager;
+            FoldersWindow *foldersWindow;
 
         public slots:
             void setDir(QString);

@@ -11,9 +11,9 @@ MainWindow::MainWindow() {
     image = new ImageLabel();
     selectFolderDlg = new QFileDialog(this,QObject::trUtf8("Select a folder"));
     aboutDlg = new AboutDialog();
+    foldersWindow = new FoldersWindow();
     layout = new QGridLayout();
     dir = new QDir();
-    xmlManager = new XMLSettingsManager();
 
     //Arrange layout.
     layout->addWidget(picScroll,0,0,9,11);
@@ -34,6 +34,7 @@ MainWindow::MainWindow() {
     QObject::connect(selectFolderDlg,SIGNAL(fileSelected(QString)),this,SLOT(setDir(QString)));
     QObject::connect(aboutBtn,SIGNAL(clicked()),aboutDlg,SLOT(exec()));
     QObject::connect(list,SIGNAL(itemSelectionChanged()),this,SLOT(setImage()));
+    QObject::connect(foldersWindowBtn,SIGNAL(clicked()),foldersWindow,SLOT(show()));
 
     this->setLayout(layout);
     this->setWindowTitle("classiPHy v" + version);
@@ -45,10 +46,6 @@ MainWindow::MainWindow() {
     picScroll->setWidget(image);
     image->setParent(picScroll);
     image->show();
-}
-
-MainWindow::~MainWindow() {
-    delete list;
 }
 
 void MainWindow::setDir(QString dirname) {
@@ -78,10 +75,12 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
-
+    if(event->key()==Qt::Key_Control) {
+        foldersWindow->setVisible(true);
+        this->activateWindow();
+        this->raise();
+    }
     switch(event->key()) {
-        case Qt::Key_Control:
-
         case Qt::Key_T :
             //Switch thumbnail mode on/off.
             image->thumbSwitch();
@@ -90,4 +89,18 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         default:
             event->ignore();
     }
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent *event) {
+    if(event->key()==Qt::Key_Control) {
+        foldersWindow->setVisible(false);
+        this->activateWindow();
+        this->raise();
+    }
+}
+
+void MainWindow::closeEvent(QCloseEvent *event) {
+    delete foldersWindow;
+    delete aboutDlg;
+    QApplication::quit();
 }
