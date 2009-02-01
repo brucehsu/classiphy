@@ -18,8 +18,8 @@ MainWindow::MainWindow() {
     //Arrange layout.
     layout->addWidget(picScroll,0,0,9,11);
     layout->addWidget(list,0,12,6,2);
-    layout->addWidget(selectFolderBtn,6,12,1,2);
-    layout->addWidget(foldersWindowBtn,7,12,1,2);
+    layout->addWidget(foldersWindowBtn,6,12,1,2);
+    layout->addWidget(selectFolderBtn,7,12,1,2);
     layout->addWidget(aboutBtn,8,12,1,2);
 
     //Set selectFolderDlg.
