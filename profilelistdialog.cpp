@@ -10,7 +10,7 @@ ProfileListDialog::ProfileListDialog(QObject *parentw,XMLSettingsManager* manage
     doneBtn = new QPushButton(QObject::trUtf8("Done"));
     layout = new QGridLayout();
 
-    //Arrange objects
+    //Arrange layout
     layout->addWidget(profileList,0,0,1,3);
     layout->addWidget(addBtn,1,0,1,1);
     layout->addWidget(editBtn,1,1,1,1);

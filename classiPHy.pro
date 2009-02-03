@@ -6,6 +6,7 @@ TARGET = classiPHy
 CONFIG -= app_bundle
 CONFIG += moc
 CONFIG += static
+INCLUDEPATH += C:\Qt\4.5.0-beta1\src\3rdparty
 QMAKE_CXXFLAGS += -pipe \
     -O2
 QTPLUGIN += qjpeg \
@@ -22,7 +23,9 @@ SOURCES += main.cpp \
     folderswindow.cpp \
     folderbutton.cpp \
     foldersettingdialog.cpp \
-    profilelistdialog.cpp
+    profilelistdialog.cpp \
+    third_party/OSDaB-Zip/zip.cpp \
+    third_party/OSDaB-Zip/unzip.cpp
 HEADERS += MainWindow.h \
     const.h \
     nosearchlist.h \
@@ -32,5 +35,10 @@ HEADERS += MainWindow.h \
     folderswindow.h \
     folderbutton.h \
     foldersettingdialog.h \
-    profilelistdialog.h
+    profilelistdialog.h \
+    third_party/OSDaB-Zip/zip_p.h \
+    third_party/OSDaB-Zip/zip.h \
+    third_party/OSDaB-Zip/unzip_p.h \
+    third_party/OSDaB-Zip/unzip.h \
+    third_party/OSDaB-Zip/zipentry_p.h
 OTHER_FILES += classiPHy_lang.ts

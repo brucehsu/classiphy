@@ -1,13 +1,14 @@
 #include "aboutdialog.h"
 #include "const.h"
 
+
 AboutDialog::AboutDialog() {
     //Initialize objects.
     layout = new QVBoxLayout();
     infoLabel = new QLabel();
     okBtn = new QPushButton(QObject::trUtf8("Ok"));
 
-    //Arrange objects.
+    //Arrange layout
     layout->addWidget(infoLabel,1,Qt::AlignHCenter);
     layout->addWidget(okBtn,1,Qt::AlignHCenter);
 

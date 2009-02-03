@@ -7,7 +7,7 @@ FoldersWindow::FoldersWindow() {
     editProfileBtn = new QPushButton(QObject::trUtf8("Edit Profiles"));
     for(int i=0;i<9;i++) folderBtns.push_back(new FolderButton(i));
     xmlManager = new XMLSettingsManager();
-    settingDlg = new FolderSettingDialog(xmlManager);
+    settingDlg = new FolderSettingDialog(this,xmlManager);
     profileDlg = new ProfileListDialog(this,xmlManager);
 
     //Set objects up
@@ -15,6 +15,7 @@ FoldersWindow::FoldersWindow() {
     this->refreshProfiles();
     for(int i=0;i<9;i++) {
         folderBtns[i]->setText(QString::number(i+1)+":");
+        folderBtns[i]->setIconSize(QSize(80,80));
         folderBtns[i]->setFixedSize(100,100);
     }
     getProfileDataByIndex(0);
@@ -34,7 +35,7 @@ FoldersWindow::FoldersWindow() {
     QObject::connect(editProfileBtn,SIGNAL(clicked()),profileDlg,SLOT(show()));
     for(int i=0;i<9;i++) {
         QObject::connect(folderBtns[i],SIGNAL(clicked()),folderBtns[i],SLOT(btnClick()));
-        QObject::connect(folderBtns[i],SIGNAL(clicked(int)),this,SLOT(getButton(int)));
+        QObject::connect(folderBtns[i],SIGNAL(clicked(int)),settingDlg,SLOT(show(int)));
     }
 
     this->setLayout(layout);
@@ -58,9 +59,21 @@ void FoldersWindow::getProfileDataByIndex(int index) {
 void FoldersWindow::refreshFolders() {
     for(int i=0;i<9;i++) {
         if(paths->at(i)!="") {
-            QDir *tempDir = new QDir(paths->at(i));
-            QString temp = tempDir->dirName();
-            folderBtns[i]->setText(QString::number(i+1)+":"+temp);
+            QFileInfo *info = new QFileInfo(paths->at(i));
+            if(info->isDir()) {
+                QDir *tempDir = new QDir(paths->at(i));
+                QString temp = tempDir->dirName();
+                folderBtns[i]->setText(QString::number(i+1)+":"+temp);
+            } else {
+                folderBtns[i]->setText(QString::number(i+1)+":"+info->fileName());
+            }
+        }
+        if(thumbs->at(i)!="") {
+            QPixmap pixtemp = QPixmap();
+            pixtemp.load(thumbs->at(i));
+            pixtemp.scaled(80,80,Qt::KeepAspectRatio,Qt::FastTransformation);
+            folderBtns[i]->setIcon(pixtemp);
+            folderBtns[i]->setText("");
         }
     }
 }
