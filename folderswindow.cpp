@@ -9,6 +9,7 @@ FoldersWindow::FoldersWindow() {
     xmlManager = new XMLSettingsManager();
     settingDlg = new FolderSettingDialog(this,xmlManager);
     profileDlg = new ProfileListDialog(this,xmlManager);
+    fileManager = new FileManager();
 
     //Set objects up
     profilesCombo->setEditable(false);
@@ -83,6 +84,36 @@ void FoldersWindow::refreshProfiles() {
     profilesCombo->addItems(xmlManager->getProfiles());
 }
 
-void FoldersWindow::getButton(int index) {
+void FoldersWindow::moveFile(QString filePath,QString fileName, int destIndex) {
+    QFileInfo *info = new QFileInfo();
+    info->setFile(paths->at(destIndex));
+    if(info->isDir()) {
+        if(renames->at(destIndex)!="")
+            fileManager->moveFileToFolder(filePath+"/"+fileName,paths->at(destIndex),renames->at(destIndex),(digits->at(destIndex)).toInt());
+        else
+            fileManager->moveFileToFolder(filePath+"/"+fileName,paths->at(destIndex)+"/"+fileName);
+    } else {
+        if(renames->at(destIndex)!="")
+            fileManager->moveFileToZip(filePath,fileName,paths->at(destIndex),renames->at(destIndex),(digits->at(destIndex)).toInt());
+        else
+            fileManager->moveFileToZip(filePath,fileName,paths->at(destIndex));
+    }
+    delete info;
+}
 
+void FoldersWindow::copyFile(QString filePath,QString fileName, int destIndex) {
+    QFileInfo *info = new QFileInfo();
+    info->setFile(paths->at(destIndex));
+    if(info->isDir()) {
+        if(renames->at(destIndex)!="")
+            fileManager->copyFileToFolder(filePath+"/"+fileName,paths->at(destIndex),renames->at(destIndex),(digits->at(destIndex)).toInt());
+        else
+            fileManager->copyFileToFolder(filePath+"/"+fileName,paths->at(destIndex)+"/"+fileName);
+    } else {
+        if(renames->at(destIndex)!="")
+            fileManager->copyFileToZip(filePath,fileName,paths->at(destIndex),renames->at(destIndex),(digits->at(destIndex)).toInt());
+        else
+            fileManager->copyFileToZip(filePath,fileName,paths->at(destIndex));
+    }
+    delete info;
 }

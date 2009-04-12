@@ -23,6 +23,8 @@ FolderSettingDialog::FolderSettingDialog(QObject *parentw, XMLSettingsManager* m
     radioLayout = new QHBoxLayout();
     layout = new QGridLayout();
     renameLayout = new QGridLayout();
+    destDlg = new QFileDialog(this,QObject::trUtf8("Select Destination"));
+    thumbDlg = new QFileDialog(this,QObject::trUtf8("Select Thumbnail"));
 
     //Arrange layout
     selectDestBtn->setMaximumWidth(60);
@@ -51,10 +53,17 @@ FolderSettingDialog::FolderSettingDialog(QObject *parentw, XMLSettingsManager* m
     this->setLayout(layout);
 
     //Set objects up
-    //destEdit->setReadOnly(true);
+    destEdit->setReadOnly(true);
     thumbEdit->setReadOnly(true);
+    thumbDlg->setFilter(QObject::trUtf8("Images") + " (*.jpeg *.tiff *.jpg *.gif *.png)");
 
     //Connect slots and signals
+    QObject::connect(folderRadioBtn,SIGNAL(toggled(bool)),this,SLOT(setDestFolderMode(bool)));
+    QObject::connect(zipRadioBtn,SIGNAL(toggled(bool)),this,SLOT(setDestZipMode(bool)));
+    QObject::connect(selectDestBtn,SIGNAL(clicked()),destDlg,SLOT(show()));
+    QObject::connect(selectThumbBtn,SIGNAL(clicked()),thumbDlg,SLOT(show()));
+    QObject::connect(destDlg,SIGNAL(fileSelected(QString)),this,SLOT(setDest(QString)));
+    QObject::connect(thumbDlg,SIGNAL(fileSelected(QString)),this,SLOT(setThumb(QString)));
     QObject::connect(confirmBtn,SIGNAL(clicked()),this,SLOT(accept()));
     QObject::connect(cancelBtn,SIGNAL(clicked()),this,SLOT(close()));
     QObject::connect(renameCheck,SIGNAL(toggled(bool)),digitsSpin,SLOT(setEnabled(bool)));
@@ -70,12 +79,21 @@ void FolderSettingDialog::show(int num) {
     QString path = xmlManager->getProfileDirPath()->at(num);
     QFileInfo *info = new QFileInfo(path);
     destEdit->setText(path);
-    thumbEdit->setText(xmlManager->getProfileDirThumb()->at(num));
+    destDlg->setDirectory(path);
+
+    if(xmlManager->getProfileDirThumb()->at(num)!="") {
+        QFileInfo *thumbInfo = new QFileInfo(xmlManager->getProfileDirThumb()->at(num));
+        thumbEdit->setText(thumbInfo->absoluteFilePath());
+        thumbDlg->setDirectory(thumbInfo->absoluteDir());
+        delete thumbInfo;
+    }
+
     if(!info->isDir()&&info->exists()) {
         zipRadioBtn->setChecked(true);
     } else {
         folderRadioBtn->setChecked(true);
     }
+
     if(xmlManager->getProfileDirRename()->at(num)!="") {
         renameCheck->setChecked(false);
         renameCheck->toggle();
@@ -88,11 +106,44 @@ void FolderSettingDialog::show(int num) {
         renameEdit->setText("");
         digitsSpin->setValue(0);
     }
+
     currentIndex = num;
+    delete info;
     ((QDialog*)this)->show();
 }
 
 void FolderSettingDialog::accept() {
     xmlManager->setProfileDirPath(currentIndex,destEdit->text());
+    xmlManager->setProfileDirThumb(currentIndex,thumbEdit->text());
+
+    if(renameCheck->isChecked()) {
+        xmlManager->setProfileDirRename(currentIndex,renameEdit->text());
+        xmlManager->setProfileDirDigits(currentIndex,QString::number(digitsSpin->value()));
+    }
+
+    xmlManager->getProfileDirInfos();
     this->close();
+}
+
+void FolderSettingDialog::setDestFolderMode(bool isFolder) {
+    if(isFolder) {
+        destDlg->setOption(QFileDialog::ShowDirsOnly,true);
+        destDlg->setFileMode(QFileDialog::DirectoryOnly);
+        destDlg->setViewMode(QFileDialog::List);
+    }
+}
+
+void FolderSettingDialog::setDestZipMode(bool isZip) {
+    if(isZip) {
+        destDlg->setFileMode(QFileDialog::ExistingFile);
+        destDlg->setFilter("*.zip");
+    }
+}
+
+void FolderSettingDialog::setDest(QString fileName) {
+    destEdit->setText(fileName);
+}
+
+void FolderSettingDialog::setThumb(QString fileName) {
+    thumbEdit->setText(fileName);
 }

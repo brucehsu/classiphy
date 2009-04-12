@@ -80,10 +80,7 @@ void XMLSettingsManager::addProfile(QString name) {
         dir.appendChild(digits);
     }
     QString xml = xmlDoc->toString(4);
-    docFile->open(QIODevice::Truncate|QIODevice::ReadWrite);
-    QTextStream in(docFile);
-    in << xml;
-    docFile->close();
+    writeDocument(xml);
 }
 
 void XMLSettingsManager::editProfile(QString originName, QString name) {
@@ -100,10 +97,7 @@ void XMLSettingsManager::editProfile(QString originName, QString name) {
     }
     profile.setAttribute("name",name);
     QString xml = xmlDoc->toString(4);
-    docFile->open(QIODevice::Truncate|QIODevice::ReadWrite);
-    QTextStream in(docFile);
-    in << xml;
-    docFile->close();
+    writeDocument(xml);
 }
 
 void XMLSettingsManager::deleteProfile(QString name) {
@@ -120,10 +114,7 @@ void XMLSettingsManager::deleteProfile(QString name) {
     }
     root.removeChild(profile);
     QString xml = xmlDoc->toString(4);
-    docFile->open(QIODevice::Truncate|QIODevice::ReadWrite);
-    QTextStream in(docFile);
-    in << xml;
-    docFile->close();
+    writeDocument(xml);
 }
 
 void XMLSettingsManager::getProfileDirInfos() {
@@ -187,10 +178,7 @@ void XMLSettingsManager::setProfileDirPath(int id, QString text) {
         }
     }
     QString xml = xmlDoc->toString(4);
-    docFile->open(QIODevice::Truncate|QIODevice::ReadWrite);
-    QTextStream in(docFile);
-    in << xml;
-    docFile->close();
+    writeDocument(xml);
 }
 
 void XMLSettingsManager::setProfileDirThumb(int id, QString text) {
@@ -219,10 +207,7 @@ void XMLSettingsManager::setProfileDirThumb(int id, QString text) {
         }
     }
     QString xml = xmlDoc->toString(4);
-    docFile->open(QIODevice::Truncate|QIODevice::ReadWrite);
-    QTextStream in(docFile);
-    in << xml;
-    docFile->close();
+    writeDocument(xml);
 }
 
 void XMLSettingsManager::setProfileDirRename(int id, QString text) {
@@ -251,10 +236,7 @@ void XMLSettingsManager::setProfileDirRename(int id, QString text) {
         }
     }
     QString xml = xmlDoc->toString(4);
-    docFile->open(QIODevice::Truncate|QIODevice::ReadWrite);
-    QTextStream in(docFile);
-    in << xml;
-    docFile->close();
+    writeDocument(xml);
 }
 
 void XMLSettingsManager::setProfileDirDigits(int id, QString text) {
@@ -283,8 +265,14 @@ void XMLSettingsManager::setProfileDirDigits(int id, QString text) {
         }
     }
     QString xml = xmlDoc->toString(4);
+    writeDocument(xml);
+}
+
+void XMLSettingsManager::writeDocument(QString xml) {
     docFile->open(QIODevice::Truncate|QIODevice::ReadWrite);
     QTextStream in(docFile);
     in << xml;
+    docFile->close();
+    xmlDoc->setContent(docFile);
     docFile->close();
 }

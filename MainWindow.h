@@ -9,6 +9,7 @@
 #include <QFileDialog>
 #include <QDir>
 #include <QFile>
+#include <QMessageBox>
 #include "nosearchlist.h"
 #include "imagelabel.h"
 #include "aboutdialog.h"
@@ -19,6 +20,7 @@
 
         public:
             MainWindow();
+            void refreshList();
             //~MainWindow();
 
         protected:

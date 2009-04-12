@@ -12,6 +12,7 @@
 #include <QCheckBox>
 #include <QRadioButton>
 #include <QFileInfo>
+#include <QFileDialog>
 #include "xmlsettingsmanager.h"
 
 class FolderSettingDialog : public QDialog
@@ -32,6 +33,7 @@ class FolderSettingDialog : public QDialog
         QLineEdit *destEdit,*thumbEdit,*renameEdit;
         QCheckBox *renameCheck;
         QSpinBox *digitsSpin;
+        QFileDialog *destDlg, *thumbDlg;
         QHBoxLayout *radioLayout;
         QGridLayout *layout,*renameLayout;
         XMLSettingsManager *xmlManager;
@@ -39,6 +41,10 @@ class FolderSettingDialog : public QDialog
 
     public slots:
         void show(int);
+        void setDestFolderMode(bool);
+        void setDestZipMode(bool);
+        void setDest(QString);
+        void setThumb(QString);
         void accept();
 };
 

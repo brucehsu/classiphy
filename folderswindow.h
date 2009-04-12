@@ -10,6 +10,7 @@
 #include "folderbutton.h"
 #include "foldersettingdialog.h"
 #include "profilelistdialog.h"
+#include "filemanager.h"
 
 class FoldersWindow : public QWidget
 {
@@ -18,6 +19,8 @@ class FoldersWindow : public QWidget
     public:
         FoldersWindow();
         void refreshFolders();
+        void moveFile(QString filePath,QString fileName,int destIndex);
+        void copyFile(QString filePath,QString fileName,int destIndex);
 
     protected:
 
@@ -30,11 +33,11 @@ class FoldersWindow : public QWidget
         QStringList *paths,*thumbs,*renames,*digits;
         FolderSettingDialog *settingDlg;
         ProfileListDialog *profileDlg;
+        FileManager *fileManager;
 
     public slots:
         void getProfileDataByIndex(int);
         void refreshProfiles();
-        void getButton(int);
 
         signals:
 };

@@ -27,6 +27,7 @@ class XMLSettingsManager
         void setProfileDirDigits(int id,QString text);
 
     protected:
+        void writeDocument(QString xml);
 
     private:
         QString currentProfile;
