@@ -4,6 +4,7 @@
 #include <QFile>
 #include <QDir>
 #include "third_party/quazip/quazip/quazip.h"
+#include "third_party/quazip/quazip/quazipfile.h"
 
 class FileManager
 {
