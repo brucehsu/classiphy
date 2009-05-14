@@ -88,10 +88,10 @@ void FolderSettingDialog::show(int num) {
         delete thumbInfo;
     }
 
-    if(!info->isDir()&&info->exists()) {
-        zipRadioBtn->setChecked(true);
-    } else {
+    if(info->isDir()) {
         folderRadioBtn->setChecked(true);
+    } else {
+        zipRadioBtn->setChecked(true);
     }
 
     if(xmlManager->getProfileDirRename()->at(num)!="") {
