@@ -93,6 +93,9 @@ void FolderSettingDialog::show(int num) {
     } else {
         zipRadioBtn->setChecked(true);
     }
+    if(!info->exists()) {
+        folderRadioBtn->setChecked(true);
+    }
 
     if(xmlManager->getProfileDirRename()->at(num)!="") {
         renameCheck->setChecked(false);
