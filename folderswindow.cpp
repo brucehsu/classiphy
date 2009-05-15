@@ -64,9 +64,9 @@ void FoldersWindow::refreshFolders() {
             if(info->isDir()) {
                 QDir *tempDir = new QDir(paths->at(i));
                 QString temp = tempDir->dirName();
-                folderBtns[i]->setText(QString::number(i+1)+":"+temp);
+                folderBtns[i]->setText(temp);
             } else {
-                folderBtns[i]->setText(QString::number(i+1)+":"+info->fileName());
+                folderBtns[i]->setText(info->fileName());
             }
         }
         if(thumbs->at(i)!="") {

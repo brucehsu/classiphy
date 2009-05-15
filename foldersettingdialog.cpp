@@ -1,4 +1,5 @@
 #include "foldersettingdialog.h"
+#include "folderswindow.h"
 
 FolderSettingDialog::FolderSettingDialog(QObject *parentw, XMLSettingsManager* manager) {
     //Initialize objects
@@ -93,7 +94,7 @@ void FolderSettingDialog::show(int num) {
     } else {
         zipRadioBtn->setChecked(true);
     }
-    if(!info->exists()) {
+    if(path=="") {
         folderRadioBtn->setChecked(true);
     }
 
@@ -125,6 +126,7 @@ void FolderSettingDialog::accept() {
     }
 
     xmlManager->getProfileDirInfos();
+    ((FoldersWindow*) parentWindow)->refreshFolders();
     this->close();
 }
 

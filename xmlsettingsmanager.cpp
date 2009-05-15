@@ -271,6 +271,7 @@ void XMLSettingsManager::setProfileDirDigits(int id, QString text) {
 void XMLSettingsManager::writeDocument(QString xml) {
     docFile->open(QIODevice::Truncate|QIODevice::ReadWrite);
     QTextStream in(docFile);
+    in.setCodec("utf8");
     in << xml;
     docFile->close();
     xmlDoc->setContent(docFile);
