@@ -1,0 +1,427 @@
+\section{QuaZip Class Reference}
+\label{classQuaZip}\index{QuaZip@{QuaZip}}
+ZIP archive.  
+
+
+{\tt \#include $<$quazip/quazip.h$>$}
+
+\subsection*{Public Types}
+\begin{CompactItemize}
+\item 
+enum {\bf Constants} \{ {\bf MAX\_\-FILE\_\-NAME\_\-LENGTH} = 256
+ \}
+\begin{CompactList}\small\item\em Useful constants. \item\end{CompactList}\item 
+enum {\bf Mode} \{ \par
+{\bf mdNotOpen}, 
+{\bf mdUnzip}, 
+{\bf mdCreate}, 
+{\bf mdAppend}, 
+\par
+{\bf mdAdd}
+ \}
+\begin{CompactList}\small\item\em Open mode of the ZIP file. \item\end{CompactList}\item 
+enum {\bf CaseSensitivity} \{ {\bf csDefault} = 0, 
+{\bf csSensitive} = 1, 
+{\bf csInsensitive} = 2
+ \}
+\begin{CompactList}\small\item\em Case sensitivity for the file names. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Public Member Functions}
+\begin{CompactItemize}
+\item 
+{\bf QuaZip} ()
+\begin{CompactList}\small\item\em Constructs \doxyref{QuaZip}{p.}{classQuaZip} object. \item\end{CompactList}\item 
+{\bf QuaZip} (const QString \&zipName)\label{classQuaZip_aea7294b02abd22379cc3a9fccb754b7}
+
+\begin{CompactList}\small\item\em Constructs \doxyref{QuaZip}{p.}{classQuaZip} object associated with ZIP file {\em zipName\/}. \item\end{CompactList}\item 
+{\bf $\sim$QuaZip} ()
+\begin{CompactList}\small\item\em Destroys \doxyref{QuaZip}{p.}{classQuaZip} object. \item\end{CompactList}\item 
+bool {\bf open} ({\bf Mode} mode, zlib\_\-filefunc\_\-def $\ast$ioApi=NULL)
+\begin{CompactList}\small\item\em Opens ZIP file. \item\end{CompactList}\item 
+void {\bf close} ()
+\begin{CompactList}\small\item\em Closes ZIP file. \item\end{CompactList}\item 
+void {\bf setFileNameCodec} (QTextCodec $\ast$fileNameCodec)
+\begin{CompactList}\small\item\em Sets the codec used to encode/decode file names inside archive. \item\end{CompactList}\item 
+void {\bf setFileNameCodec} (const char $\ast$fileNameCodecName)
+\begin{CompactList}\small\item\em Sets the codec used to encode/decode file names inside archive. \item\end{CompactList}\item 
+QTextCodec $\ast$ {\bf getFileNameCodec} () const \label{classQuaZip_c08a895376535a8860b9d5accd52e247}
+
+\begin{CompactList}\small\item\em Returns the codec used to encode/decode comments inside archive. \item\end{CompactList}\item 
+void {\bf setCommentCodec} (QTextCodec $\ast$commentCodec)
+\begin{CompactList}\small\item\em Sets the codec used to encode/decode comments inside archive. \item\end{CompactList}\item 
+void {\bf setCommentCodec} (const char $\ast$commentCodecName)
+\begin{CompactList}\small\item\em Sets the codec used to encode/decode comments inside archive. \item\end{CompactList}\item 
+QTextCodec $\ast$ {\bf getCommentCodec} () const \label{classQuaZip_25a8d6963e62eaff007569001e8715c4}
+
+\begin{CompactList}\small\item\em Returns the codec used to encode/decode comments inside archive. \item\end{CompactList}\item 
+QString {\bf getZipName} () const 
+\begin{CompactList}\small\item\em Returns the name of the ZIP file. \item\end{CompactList}\item 
+void {\bf setZipName} (const QString \&zipName)
+\begin{CompactList}\small\item\em Sets the name of the ZIP file. \item\end{CompactList}\item 
+{\bf Mode} {\bf getMode} () const \label{classQuaZip_5ad835fba0d8fb5a71f54c1ba7a4af4f}
+
+\begin{CompactList}\small\item\em Returns the mode in which ZIP file was opened. \item\end{CompactList}\item 
+bool {\bf isOpen} () const \label{classQuaZip_5b869a9c0d4f49955b759592fec08888}
+
+\begin{CompactList}\small\item\em Returns {\tt true} if ZIP file is open, {\tt false} otherwise. \item\end{CompactList}\item 
+int {\bf getZipError} () const 
+\begin{CompactList}\small\item\em Returns the error code of the last operation. \item\end{CompactList}\item 
+int {\bf getEntriesCount} () const 
+\begin{CompactList}\small\item\em Returns number of the entries in the ZIP central directory. \item\end{CompactList}\item 
+QString {\bf getComment} () const \label{classQuaZip_e55cfbf2296132df808c557b62433051}
+
+\begin{CompactList}\small\item\em Returns global comment in the ZIP file. \item\end{CompactList}\item 
+void {\bf setComment} (const QString \&comment)
+\begin{CompactList}\small\item\em Sets global comment in the ZIP file. \item\end{CompactList}\item 
+bool {\bf goToFirstFile} ()
+\begin{CompactList}\small\item\em Sets the current file to the first file in the archive. \item\end{CompactList}\item 
+bool {\bf goToNextFile} ()
+\begin{CompactList}\small\item\em Sets the current file to the next file in the archive. \item\end{CompactList}\item 
+bool {\bf setCurrentFile} (const QString \&fileName, {\bf CaseSensitivity} cs=csDefault)
+\begin{CompactList}\small\item\em Sets current file by its name. \item\end{CompactList}\item 
+bool {\bf hasCurrentFile} () const \label{classQuaZip_00b237d926648f45da86db25e7cfb697}
+
+\begin{CompactList}\small\item\em Returns {\tt true} if the current file has been set. \item\end{CompactList}\item 
+bool {\bf getCurrentFileInfo} ({\bf QuaZipFileInfo} $\ast$info) const 
+\begin{CompactList}\small\item\em Retrieves information about the current file. \item\end{CompactList}\item 
+QString {\bf getCurrentFileName} () const 
+\begin{CompactList}\small\item\em Returns the current file name. \item\end{CompactList}\item 
+unzFile {\bf getUnzFile} ()
+\begin{CompactList}\small\item\em Returns {\tt unzFile} handle. \item\end{CompactList}\item 
+zipFile {\bf getZipFile} ()
+\begin{CompactList}\small\item\em Returns {\tt zipFile} handle. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+ZIP archive. 
+
+This class implements basic interface to the ZIP archive. It can be used to read table contents of the ZIP archive and retreiving information about the files inside it.
+
+You can also use this class to open files inside archive by passing pointer to the instance of this class to the constructor of the \doxyref{QuaZipFile}{p.}{classQuaZipFile} class. But see \doxyref{QuaZipFile::QuaZipFile(QuaZip$\ast$, QObject$\ast$)}{p.}{classQuaZipFile_54e944a6b3d27030f64c8f30d2cc33bb} for the possible pitfalls.
+
+This class is indended to provide interface to the ZIP subpackage of the ZIP/UNZIP package as well as to the UNZIP subpackage. But currently it supports only UNZIP.
+
+The use of this class is simple - just create instance using constructor, then set ZIP archive file name using setFile() function (if you did not passed the name to the constructor), then \doxyref{open()}{p.}{classQuaZip_bfa4e6018b2964a3d10a4c54e5ab3962} and then use different functions to work with it! Well, if you are paranoid, you may also wish to call close before destructing the instance, to check for errors on close.
+
+You may also use \doxyref{getUnzFile()}{p.}{classQuaZip_3b78a652f296ff4a678a791e8294e642} and \doxyref{getZipFile()}{p.}{classQuaZip_425043a4d7cc31e2fe2bba73d954f15c} functions to get the ZIP archive handle and use it with ZIP/UNZIP package API directly.
+
+This class supports localized file names inside ZIP archive, but you have to set up proper codec with setCodec() function. By default, locale codec will be used, which is probably ok for UNIX systems, but will almost certainly fail with ZIP archives created in Windows. This is because Windows ZIP programs have strange habit of using DOS encoding for file names in ZIP archives. For example, ZIP archive with cyrillic names created in Windows will have file names in {\tt IBM866} encoding instead of {\tt WINDOWS-1251}. I think that calling one function is not much trouble, but for true platform independency it would be nice to have some mechanism for file name encoding auto detection using locale information. Does anyone know a good way to do it? 
+
+\subsection{Member Enumeration Documentation}
+\index{QuaZip@{QuaZip}!Constants@{Constants}}
+\index{Constants@{Constants}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}enum {\bf QuaZip::Constants}}\label{classQuaZip_dce46b942c341dbb5c851eadead65459}
+
+
+Useful constants. 
+
+\begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{MAX\_\-FILE\_\-NAME\_\-LENGTH@{MAX\_\-FILE\_\-NAME\_\-LENGTH}!QuaZip@{QuaZip}}\index{QuaZip@{QuaZip}!MAX\_\-FILE\_\-NAME\_\-LENGTH@{MAX\_\-FILE\_\-NAME\_\-LENGTH}}\item[{\em 
+MAX\_\-FILE\_\-NAME\_\-LENGTH\label{classQuaZip_dce46b942c341dbb5c851eadead65459b26ce1a9c9e94f901dc2cf90fa5baa4b}
+}]Maximum file name length. Taken from {\tt UNZ\_\-MAXFILENAMEINZIP} constant in unzip.c. \end{description}
+\end{Desc}
+
+\index{QuaZip@{QuaZip}!Mode@{Mode}}
+\index{Mode@{Mode}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}enum {\bf QuaZip::Mode}}\label{classQuaZip_47e28d4116ee716fdd6b431b821d0be4}
+
+
+Open mode of the ZIP file. 
+
+\begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{mdNotOpen@{mdNotOpen}!QuaZip@{QuaZip}}\index{QuaZip@{QuaZip}!mdNotOpen@{mdNotOpen}}\item[{\em 
+mdNotOpen\label{classQuaZip_47e28d4116ee716fdd6b431b821d0be4c87ddb1e901e1ec700c16ee0d4d398ce}
+}]ZIP file is not open. This is the initial mode. \index{mdUnzip@{mdUnzip}!QuaZip@{QuaZip}}\index{QuaZip@{QuaZip}!mdUnzip@{mdUnzip}}\item[{\em 
+mdUnzip\label{classQuaZip_47e28d4116ee716fdd6b431b821d0be4803a371910c2dc830d111e9ce5b58897}
+}]ZIP file is open for reading files inside it. \index{mdCreate@{mdCreate}!QuaZip@{QuaZip}}\index{QuaZip@{QuaZip}!mdCreate@{mdCreate}}\item[{\em 
+mdCreate\label{classQuaZip_47e28d4116ee716fdd6b431b821d0be425ae05b12590540af8c66ae8298b928e}
+}]ZIP file was created with \doxyref{open()}{p.}{classQuaZip_bfa4e6018b2964a3d10a4c54e5ab3962} call. \index{mdAppend@{mdAppend}!QuaZip@{QuaZip}}\index{QuaZip@{QuaZip}!mdAppend@{mdAppend}}\item[{\em 
+mdAppend\label{classQuaZip_47e28d4116ee716fdd6b431b821d0be4b807f0c65653a16d77b365801fd25582}
+}]ZIP file was opened in append mode. This refers to {\tt APPEND\_\-STATUS\_\-CREATEAFTER} mode in ZIP/UNZIP package and means that zip is appended to some existing file what is useful when that file contains self-extractor code. This is obviously {\em not\/} what you whant to use to add files to the existing ZIP archive. \index{mdAdd@{mdAdd}!QuaZip@{QuaZip}}\index{QuaZip@{QuaZip}!mdAdd@{mdAdd}}\item[{\em 
+mdAdd\label{classQuaZip_47e28d4116ee716fdd6b431b821d0be422c745f349f06add449af523254fdaec}
+}]ZIP file was opened for adding files in the archive. \end{description}
+\end{Desc}
+
+\index{QuaZip@{QuaZip}!CaseSensitivity@{CaseSensitivity}}
+\index{CaseSensitivity@{CaseSensitivity}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}enum {\bf QuaZip::CaseSensitivity}}\label{classQuaZip_6053a1d249ed210a85c9d5eb7cf9cdbe}
+
+
+Case sensitivity for the file names. 
+
+This is what you specify when accessing files in the archive. Works perfectly fine with any characters thanks to Qt's great unicode support. This is different from ZIP/UNZIP API, where only US-ASCII characters was supported. \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{csDefault@{csDefault}!QuaZip@{QuaZip}}\index{QuaZip@{QuaZip}!csDefault@{csDefault}}\item[{\em 
+csDefault\label{classQuaZip_6053a1d249ed210a85c9d5eb7cf9cdbec3cca8c0b976cf6397a28a5c84e75253}
+}]Default for platform. Case sensitive for UNIX, not for Windows. \index{csSensitive@{csSensitive}!QuaZip@{QuaZip}}\index{QuaZip@{QuaZip}!csSensitive@{csSensitive}}\item[{\em 
+csSensitive\label{classQuaZip_6053a1d249ed210a85c9d5eb7cf9cdbed8d86b0c34203336cad09348cfa5356e}
+}]Case sensitive. \index{csInsensitive@{csInsensitive}!QuaZip@{QuaZip}}\index{QuaZip@{QuaZip}!csInsensitive@{csInsensitive}}\item[{\em 
+csInsensitive\label{classQuaZip_6053a1d249ed210a85c9d5eb7cf9cdbe3e492bcc3f64f41a74906cecc45fb366}
+}]Case insensitive. \end{description}
+\end{Desc}
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{QuaZip@{QuaZip}!QuaZip@{QuaZip}}
+\index{QuaZip@{QuaZip}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}QuaZip::QuaZip ()}\label{classQuaZip_970e0f401c7cfd7a78e78572f758eec4}
+
+
+Constructs \doxyref{QuaZip}{p.}{classQuaZip} object. 
+
+Call setName() before opening constructed object. \index{QuaZip@{QuaZip}!$\sim$QuaZip@{$\sim$QuaZip}}
+\index{$\sim$QuaZip@{$\sim$QuaZip}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}QuaZip::$\sim$QuaZip ()}\label{classQuaZip_f60a2d3930b90f3b25a3148baecad81e}
+
+
+Destroys \doxyref{QuaZip}{p.}{classQuaZip} object. 
+
+Calls \doxyref{close()}{p.}{classQuaZip_7a4323b73e12f3b4470109f200728f9f} if necessary. 
+
+References close(), and isOpen().
+
+\subsection{Member Function Documentation}
+\index{QuaZip@{QuaZip}!open@{open}}
+\index{open@{open}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool QuaZip::open ({\bf Mode} {\em mode}, \/  zlib\_\-filefunc\_\-def $\ast$ {\em ioApi} = {\tt NULL})}\label{classQuaZip_bfa4e6018b2964a3d10a4c54e5ab3962}
+
+
+Opens ZIP file. 
+
+Argument {\em ioApi\/} specifies IO function set for ZIP/UNZIP package to use. See unzip.h, zip.h and ioapi.h for details. By passing NULL (the default) you just tell package to use the default API which works just fine on UNIX platforms. I have tried it on win32-g++ platform too and it seems it works fine there too, so I see no reason to use win32 IO API included in original ZIP/UNZIP package.
+
+ZIP archive file name will be converted to 8-bit encoding using Qt's QFile::encodeName() function before passing it to the ZIP/UNZIP package API.
+
+Returns {\tt true} if successful, {\tt false} otherwise.
+
+Argument {\em mode\/} specifies open mode of the ZIP archive. See Mode for details. Note that there is zipOpen2() function in the ZIP/UNZIP API which accepts {\em globalcomment\/} argument, but it does not use it anywhere, so this \doxyref{open()}{p.}{classQuaZip_bfa4e6018b2964a3d10a4c54e5ab3962} function does not have this argument. See \doxyref{setComment()}{p.}{classQuaZip_1b5d936a203859340574d5908ffa2222} if you need to set global comment.
+
+\begin{Desc}
+\item[Note:]ZIP/UNZIP API open calls do not return error code - they just return {\tt NULL} indicating an error. But to make things easier, \doxyref{quazip.h}{p.}{quazip_8h-source} header defines additional error code {\tt UNZ\_\-ERROROPEN} and \doxyref{getZipError()}{p.}{classQuaZip_28b91a6282ddd9382c96a069572c6fb4} will return it if the open call of the ZIP/UNZIP API returns {\tt NULL}. \end{Desc}
+
+
+References isOpen(), mdAdd, mdAppend, mdCreate, and mdUnzip.
+
+Referenced by QuaZipFile::open().\index{QuaZip@{QuaZip}!close@{close}}
+\index{close@{close}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void QuaZip::close ()}\label{classQuaZip_7a4323b73e12f3b4470109f200728f9f}
+
+
+Closes ZIP file. 
+
+Call \doxyref{getZipError()}{p.}{classQuaZip_28b91a6282ddd9382c96a069572c6fb4} to determine if the close was successful. 
+
+References mdAdd, mdAppend, mdCreate, mdNotOpen, and mdUnzip.
+
+Referenced by QuaZipFile::close(), QuaZipFile::open(), and $\sim$QuaZip().\index{QuaZip@{QuaZip}!setFileNameCodec@{setFileNameCodec}}
+\index{setFileNameCodec@{setFileNameCodec}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void QuaZip::setFileNameCodec (QTextCodec $\ast$ {\em fileNameCodec})\hspace{0.3cm}{\tt  [inline]}}\label{classQuaZip_339010b5566704ba3c9cafbfe848d8fb}
+
+
+Sets the codec used to encode/decode file names inside archive. 
+
+This is necessary to access files in the ZIP archive created under Windows with non-latin characters in file names. For example, file names with cyrillic letters will be in {\tt IBM866} encoding. \index{QuaZip@{QuaZip}!setFileNameCodec@{setFileNameCodec}}
+\index{setFileNameCodec@{setFileNameCodec}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void QuaZip::setFileNameCodec (const char $\ast$ {\em fileNameCodecName})\hspace{0.3cm}{\tt  [inline]}}\label{classQuaZip_8f283519a195aa1d9076bbbb01ea0497}
+
+
+Sets the codec used to encode/decode file names inside archive. 
+
+This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. Equivalent to calling setFileNameCodec(QTextCodec::codecForName(codecName)); \index{QuaZip@{QuaZip}!setCommentCodec@{setCommentCodec}}
+\index{setCommentCodec@{setCommentCodec}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void QuaZip::setCommentCodec (QTextCodec $\ast$ {\em commentCodec})\hspace{0.3cm}{\tt  [inline]}}\label{classQuaZip_1c81fca7215a4374f6f03872ade4885b}
+
+
+Sets the codec used to encode/decode comments inside archive. 
+
+This codec defaults to locale codec, which is probably ok. \index{QuaZip@{QuaZip}!setCommentCodec@{setCommentCodec}}
+\index{setCommentCodec@{setCommentCodec}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void QuaZip::setCommentCodec (const char $\ast$ {\em commentCodecName})\hspace{0.3cm}{\tt  [inline]}}\label{classQuaZip_413f3c56b54a9a47258d53802cb606e7}
+
+
+Sets the codec used to encode/decode comments inside archive. 
+
+This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. Equivalent to calling setCommentCodec(QTextCodec::codecForName(codecName)); \index{QuaZip@{QuaZip}!getZipName@{getZipName}}
+\index{getZipName@{getZipName}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}QString QuaZip::getZipName () const\hspace{0.3cm}{\tt  [inline]}}\label{classQuaZip_4f7deef08ff40aeb1a7a04bcd7f228c2}
+
+
+Returns the name of the ZIP file. 
+
+Returns null string if no ZIP file name has been set. \begin{Desc}
+\item[See also:]\doxyref{setZipName()}{p.}{classQuaZip_a80b661de1262af905d1677dbcb008cc} \end{Desc}
+
+
+Referenced by QuaZipFile::getZipName().\index{QuaZip@{QuaZip}!setZipName@{setZipName}}
+\index{setZipName@{setZipName}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void QuaZip::setZipName (const QString \& {\em zipName})}\label{classQuaZip_a80b661de1262af905d1677dbcb008cc}
+
+
+Sets the name of the ZIP file. 
+
+Does nothing if the ZIP file is open.
+
+Does not reset error code returned by \doxyref{getZipError()}{p.}{classQuaZip_28b91a6282ddd9382c96a069572c6fb4}. 
+
+References isOpen().\index{QuaZip@{QuaZip}!getZipError@{getZipError}}
+\index{getZipError@{getZipError}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int QuaZip::getZipError () const\hspace{0.3cm}{\tt  [inline]}}\label{classQuaZip_28b91a6282ddd9382c96a069572c6fb4}
+
+
+Returns the error code of the last operation. 
+
+Returns {\tt UNZ\_\-OK} if the last operation was successful.
+
+Error code resets to {\tt UNZ\_\-OK} every time you call any function that accesses something inside ZIP archive, even if it is {\tt const} (like \doxyref{getEntriesCount()}{p.}{classQuaZip_2ea4bd1fca948637c35c2d2752bb5a80}). \doxyref{open()}{p.}{classQuaZip_bfa4e6018b2964a3d10a4c54e5ab3962} and \doxyref{close()}{p.}{classQuaZip_7a4323b73e12f3b4470109f200728f9f} calls reset error code too. See documentation for the specific functions for details on error detection. 
+
+Referenced by QuaZipFile::close(), QuaZipFile::getActualFileName(), QuaZipFile::getFileInfo(), and QuaZipFile::open().\index{QuaZip@{QuaZip}!getEntriesCount@{getEntriesCount}}
+\index{getEntriesCount@{getEntriesCount}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int QuaZip::getEntriesCount () const}\label{classQuaZip_2ea4bd1fca948637c35c2d2752bb5a80}
+
+
+Returns number of the entries in the ZIP central directory. 
+
+Returns negative error code in the case of error. The same error code will be returned by subsequent \doxyref{getZipError()}{p.}{classQuaZip_28b91a6282ddd9382c96a069572c6fb4} call. 
+
+References mdUnzip, and zipError.\index{QuaZip@{QuaZip}!setComment@{setComment}}
+\index{setComment@{setComment}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void QuaZip::setComment (const QString \& {\em comment})\hspace{0.3cm}{\tt  [inline]}}\label{classQuaZip_1b5d936a203859340574d5908ffa2222}
+
+
+Sets global comment in the ZIP file. 
+
+Comment will be written to the archive on close operation.
+
+\begin{Desc}
+\item[See also:]\doxyref{open()}{p.}{classQuaZip_bfa4e6018b2964a3d10a4c54e5ab3962} \end{Desc}
+\index{QuaZip@{QuaZip}!goToFirstFile@{goToFirstFile}}
+\index{goToFirstFile@{goToFirstFile}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool QuaZip::goToFirstFile ()}\label{classQuaZip_745488f9177bcec3cdb858587584e033}
+
+
+Sets the current file to the first file in the archive. 
+
+Returns {\tt true} on success, {\tt false} otherwise. Call \doxyref{getZipError()}{p.}{classQuaZip_28b91a6282ddd9382c96a069572c6fb4} to get the error code. 
+
+References mdUnzip.
+
+Referenced by setCurrentFile().\index{QuaZip@{QuaZip}!goToNextFile@{goToNextFile}}
+\index{goToNextFile@{goToNextFile}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool QuaZip::goToNextFile ()}\label{classQuaZip_ee6779b6cd338420c2e8c5655fa8ba97}
+
+
+Sets the current file to the next file in the archive. 
+
+Returns {\tt true} on success, {\tt false} otherwise. Call \doxyref{getZipError()}{p.}{classQuaZip_28b91a6282ddd9382c96a069572c6fb4} to determine if there was an error.
+
+Should be used only in \doxyref{QuaZip::mdUnzip}{p.}{classQuaZip_47e28d4116ee716fdd6b431b821d0be4803a371910c2dc830d111e9ce5b58897} mode.
+
+\begin{Desc}
+\item[Note:]If the end of file was reached, \doxyref{getZipError()}{p.}{classQuaZip_28b91a6282ddd9382c96a069572c6fb4} will return {\tt UNZ\_\-OK} instead of {\tt UNZ\_\-END\_\-OF\_\-LIST\_\-OF\_\-FILE}. This is to make things like this easier: 
+
+\begin{Code}\begin{verbatim} for(bool more=zip.goToFirstFile(); more; more=zip.goToNextFile()) {
+   // do something
+ }
+ if(zip.getZipError()==UNZ_OK) {
+   // ok, there was no error
+ }
+\end{verbatim}
+\end{Code}
+
+ \end{Desc}
+
+
+References mdUnzip.
+
+Referenced by setCurrentFile().\index{QuaZip@{QuaZip}!setCurrentFile@{setCurrentFile}}
+\index{setCurrentFile@{setCurrentFile}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool QuaZip::setCurrentFile (const QString \& {\em fileName}, \/  {\bf CaseSensitivity} {\em cs} = {\tt csDefault})}\label{classQuaZip_6c657bfcfccb59d728e0da24c677d899}
+
+
+Sets current file by its name. 
+
+Returns {\tt true} if successful, {\tt false} otherwise. Argument {\em cs\/} specifies case sensitivity of the file name. Call \doxyref{getZipError()}{p.}{classQuaZip_28b91a6282ddd9382c96a069572c6fb4} in the case of a failure to get error code.
+
+This is not a wrapper to unzLocateFile() function. That is because I had to implement locale-specific case-insensitive comparison.
+
+Here are the differences from the original implementation:
+
+\begin{itemize}
+\item If the file was not found, error code is {\tt UNZ\_\-OK}, not {\tt UNZ\_\-END\_\-OF\_\-LIST\_\-OF\_\-FILE} (see also \doxyref{goToNextFile()}{p.}{classQuaZip_ee6779b6cd338420c2e8c5655fa8ba97}).\item If this function fails, it unsets the current file rather than resetting it back to what it was before the call.\end{itemize}
+
+
+If {\em fileName\/} is null string then this function unsets the current file and return {\tt true}. Note that you should close the file first if it is open! See \doxyref{QuaZipFile::QuaZipFile(QuaZip$\ast$,QObject$\ast$)}{p.}{classQuaZipFile_54e944a6b3d27030f64c8f30d2cc33bb} for the details.
+
+Should be used only in \doxyref{QuaZip::mdUnzip}{p.}{classQuaZip_47e28d4116ee716fdd6b431b821d0be4803a371910c2dc830d111e9ce5b58897} mode.
+
+\begin{Desc}
+\item[See also:]\doxyref{setFileNameCodec()}{p.}{classQuaZip_339010b5566704ba3c9cafbfe848d8fb}, \doxyref{CaseSensitivity}{p.}{classQuaZip_6053a1d249ed210a85c9d5eb7cf9cdbe} \end{Desc}
+
+
+References csDefault, csSensitive, getCurrentFileName(), goToFirstFile(), goToNextFile(), MAX\_\-FILE\_\-NAME\_\-LENGTH, and mdUnzip.
+
+Referenced by QuaZipFile::open().\index{QuaZip@{QuaZip}!getCurrentFileInfo@{getCurrentFileInfo}}
+\index{getCurrentFileInfo@{getCurrentFileInfo}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool QuaZip::getCurrentFileInfo ({\bf QuaZipFileInfo} $\ast$ {\em info}) const}\label{classQuaZip_9c91a53ed4c2038e153c64bdc097ebe8}
+
+
+Retrieves information about the current file. 
+
+Fills the structure pointed by {\em info\/}. Returns {\tt true} on success, {\tt false} otherwise. In the latter case structure pointed by {\em info\/} remains untouched. If there was an error, \doxyref{getZipError()}{p.}{classQuaZip_28b91a6282ddd9382c96a069572c6fb4} returns error code.
+
+Should be used only in \doxyref{QuaZip::mdUnzip}{p.}{classQuaZip_47e28d4116ee716fdd6b431b821d0be4803a371910c2dc830d111e9ce5b58897} mode.
+
+Does nothing and returns {\tt false} in any of the following cases.\begin{itemize}
+\item ZIP is not open;\item ZIP does not have current file;\item {\em info\/} is {\tt NULL};\end{itemize}
+
+
+In all these cases \doxyref{getZipError()}{p.}{classQuaZip_28b91a6282ddd9382c96a069572c6fb4} returns {\tt UNZ\_\-OK} since there is no ZIP/UNZIP API call. 
+
+References QuaZipFileInfo::comment, QuaZipFileInfo::compressedSize, QuaZipFileInfo::crc, QuaZipFileInfo::dateTime, QuaZipFileInfo::diskNumberStart, QuaZipFileInfo::externalAttr, QuaZipFileInfo::extra, QuaZipFileInfo::flags, hasCurrentFile(), QuaZipFileInfo::internalAttr, isOpen(), mdUnzip, QuaZipFileInfo::method, QuaZipFileInfo::name, QuaZipFileInfo::uncompressedSize, QuaZipFileInfo::versionCreated, QuaZipFileInfo::versionNeeded, and zipError.
+
+Referenced by QuaZipFile::getFileInfo().\index{QuaZip@{QuaZip}!getCurrentFileName@{getCurrentFileName}}
+\index{getCurrentFileName@{getCurrentFileName}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}QString QuaZip::getCurrentFileName () const}\label{classQuaZip_9783f8b4f39cd55e71e975aea78fd54a}
+
+
+Returns the current file name. 
+
+Equivalent to calling \doxyref{getCurrentFileInfo()}{p.}{classQuaZip_9c91a53ed4c2038e153c64bdc097ebe8} and then getting {\tt name} field of the \doxyref{QuaZipFileInfo}{p.}{structQuaZipFileInfo} structure, but faster and more convenient.
+
+Should be used only in \doxyref{QuaZip::mdUnzip}{p.}{classQuaZip_47e28d4116ee716fdd6b431b821d0be4803a371910c2dc830d111e9ce5b58897} mode. 
+
+References hasCurrentFile(), isOpen(), MAX\_\-FILE\_\-NAME\_\-LENGTH, mdUnzip, and zipError.
+
+Referenced by QuaZipFile::getActualFileName(), and setCurrentFile().\index{QuaZip@{QuaZip}!getUnzFile@{getUnzFile}}
+\index{getUnzFile@{getUnzFile}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unzFile QuaZip::getUnzFile ()\hspace{0.3cm}{\tt  [inline]}}\label{classQuaZip_3b78a652f296ff4a678a791e8294e642}
+
+
+Returns {\tt unzFile} handle. 
+
+You can use this handle to directly call UNZIP part of the ZIP/UNZIP package functions (see unzip.h).
+
+\begin{Desc}
+\item[Warning:]When using the handle returned by this function, please keep in mind that \doxyref{QuaZip}{p.}{classQuaZip} class is unable to detect any changes you make in the ZIP file state (e. g. changing current file, or closing the handle). So please do not do anything with this handle that is possible to do with the functions of this class. Or at least return the handle in the original state before calling some another function of this class (including implicit destructor calls and calls from the \doxyref{QuaZipFile}{p.}{classQuaZipFile} objects that refer to this \doxyref{QuaZip}{p.}{classQuaZip} instance!). So if you have changed the current file in the ZIP archive - then change it back or you may experience some strange behavior or even crashes. \end{Desc}
+
+
+Referenced by QuaZipFile::atEnd(), QuaZipFile::close(), QuaZipFile::csize(), QuaZipFile::open(), QuaZipFile::pos(), QuaZipFile::readData(), and QuaZipFile::usize().\index{QuaZip@{QuaZip}!getZipFile@{getZipFile}}
+\index{getZipFile@{getZipFile}!QuaZip@{QuaZip}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}zipFile QuaZip::getZipFile ()\hspace{0.3cm}{\tt  [inline]}}\label{classQuaZip_425043a4d7cc31e2fe2bba73d954f15c}
+
+
+Returns {\tt zipFile} handle. 
+
+You can use this handle to directly call ZIP part of the ZIP/UNZIP package functions (see zip.h). Warnings about the \doxyref{getUnzFile()}{p.}{classQuaZip_3b78a652f296ff4a678a791e8294e642} function also apply to this function. 
+
+Referenced by QuaZipFile::close(), QuaZipFile::open(), and QuaZipFile::writeData().
+
+The documentation for this class was generated from the following files:\begin{CompactItemize}
+\item 
+quazip/quazip.h\item 
+quazip/quazip.cpp\end{CompactItemize}
