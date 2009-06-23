@@ -10,30 +10,32 @@ void FileManager::deleteFile(QString path) {
     delete originFile;
 }
 
-void FileManager::copyFileToFolder(QString originPath, QString newPath) {
-    QFile *originFile = new QFile(originPath);
-    originFile->copy(newPath);
+void FileManager::copyFileToFolder(QString originPath, QString originName,QString newPath,QString newName) {
+    QFile *originFile = new QFile(originPath + "/" + originName);
+    originFile->copy(newPath + "/" + newName);
     delete originFile;
 }
 
-void FileManager::copyFileToFolder(QString originPath, QString newPath,QString rename,int digits) {
-    QFileInfo* info = new QFileInfo(originPath);
+void FileManager::copyFileToFolder(QString originPath, QString originName,QString newPath,QString rename,int digits) {
+    QFileInfo* info = new QFileInfo(originPath + "/" + originName);
     QString name = generateName(newPath,rename,info->completeSuffix(),digits);
-    copyFileToFolder(originPath,newPath + "/" + name);
+    copyFileToFolder(originPath,originName, newPath, name);
     delete info;
 }
 
-void FileManager::moveFileToFolder(QString originPath, QString newPath) {
-    historyFrom.push_back(originPath);
-    historyTo.push_back(newPath);
-    historyType.push_back("folder");
-    copyFileToFolder(originPath, newPath);
-    deleteFile(originPath);
+void FileManager::moveFileToFolder(QString originPath, QString originName,QString newPath,QString newName) {
+    /*historyFromPath.push(originPath);
+    historyFromName.push(originName);
+    historyToPath.push(newPath);
+    historyToName.push(newName);
+    historyType.push_back("folder");*/
+    copyFileToFolder(originPath,originName, newPath, newName);
+    deleteFile(originPath + "/" + originName);
 }
 
-void FileManager::moveFileToFolder(QString originPath, QString newPath,QString rename,int digits) {
-    copyFileToFolder(originPath,newPath,rename,digits);
-    deleteFile(originPath);
+void FileManager::moveFileToFolder(QString originPath, QString originName,QString newPath,QString rename,int digits) {
+    copyFileToFolder(originPath,originName,newPath,rename,digits);
+    deleteFile(originPath + "/" + originName);
 }
 
 void FileManager::copyFileToZip(QString filePath, QString fileName, QString zipPath) {
@@ -61,9 +63,6 @@ void FileManager::copyFileToZip(QString filePath, QString fileName, QString zipP
 
 void FileManager::copyFileToZip(QString filePath, QString fileName, QString zipPath,QString rename,int digits) {
     QFileInfo* info = new QFileInfo(filePath+"/"+fileName);
-    historyFrom.push_back(filePath);
-    historyTo.push_back(fileName);
-    historyType.push_back("zip");
     QString name = generateName(fileName,rename,info->completeSuffix(),digits);
     copyFileToZip(filePath,name,zipPath);
     delete info;

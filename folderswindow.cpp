@@ -89,9 +89,9 @@ void FoldersWindow::moveFile(QString filePath,QString fileName, int destIndex) {
     info->setFile(paths->at(destIndex));
     if(info->isDir()) {
         if(renames->at(destIndex)!="")
-            fileManager->moveFileToFolder(filePath+"/"+fileName,paths->at(destIndex),renames->at(destIndex),(digits->at(destIndex)).toInt());
+            fileManager->moveFileToFolder(filePath,fileName,paths->at(destIndex),renames->at(destIndex),(digits->at(destIndex)).toInt());
         else
-            fileManager->moveFileToFolder(filePath+"/"+fileName,paths->at(destIndex)+"/"+fileName);
+            fileManager->moveFileToFolder(filePath,fileName,paths->at(destIndex),fileName);
     } else {
         if(renames->at(destIndex)!="")
             fileManager->moveFileToZip(filePath,fileName,paths->at(destIndex),renames->at(destIndex),(digits->at(destIndex)).toInt());
@@ -106,9 +106,9 @@ void FoldersWindow::copyFile(QString filePath,QString fileName, int destIndex) {
     info->setFile(paths->at(destIndex));
     if(info->isDir()) {
         if(renames->at(destIndex)!="")
-            fileManager->copyFileToFolder(filePath+"/"+fileName,paths->at(destIndex),renames->at(destIndex),(digits->at(destIndex)).toInt());
+            fileManager->copyFileToFolder(filePath,fileName,paths->at(destIndex),renames->at(destIndex),(digits->at(destIndex)).toInt());
         else
-            fileManager->copyFileToFolder(filePath+"/"+fileName,paths->at(destIndex)+"/"+fileName);
+            fileManager->copyFileToFolder(filePath,fileName,paths->at(destIndex),fileName);
     } else {
         if(renames->at(destIndex)!="")
             fileManager->copyFileToZip(filePath,fileName,paths->at(destIndex),renames->at(destIndex),(digits->at(destIndex)).toInt());
