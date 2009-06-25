@@ -20,16 +20,21 @@ void FileManager::copyFileToFolder(QString originPath, QString originName,QStrin
     QFileInfo* info = new QFileInfo(originPath + "/" + originName);
     QString name = generateName(newPath,rename,info->completeSuffix(),digits);
     copyFileToFolder(originPath,originName, newPath, name);
+    historyFromPath.push(originPath);
+    historyFromName.push(originName);
+    historyToPath.push(newPath);
+    historyToName.push(name);
+    historyType.push_back("folder");
     delete info;
 }
 
 void FileManager::moveFileToFolder(QString originPath, QString originName,QString newPath,QString newName) {
-    /*historyFromPath.push(originPath);
+    copyFileToFolder(originPath,originName, newPath, newName);
+    historyFromPath.push(originPath);
     historyFromName.push(originName);
     historyToPath.push(newPath);
     historyToName.push(newName);
-    historyType.push_back("folder");*/
-    copyFileToFolder(originPath,originName, newPath, newName);
+    historyType.push_back("folder");
     deleteFile(originPath + "/" + originName);
 }
 
@@ -65,11 +70,21 @@ void FileManager::copyFileToZip(QString filePath, QString fileName, QString zipP
     QFileInfo* info = new QFileInfo(filePath+"/"+fileName);
     QString name = generateName(fileName,rename,info->completeSuffix(),digits);
     copyFileToZip(filePath,name,zipPath);
+    historyFromPath.push(filePath);
+    historyFromName.push(fileName);
+    historyToPath.push(zipPath);
+    historyToName.push(name);
+    historyType.push_back("zip");
     delete info;
 }
 
 void FileManager::moveFileToZip(QString filePath, QString fileName, QString zipPath) {
     copyFileToZip(filePath,fileName,zipPath);
+    historyFromPath.push(filePath);
+    historyFromName.push(fileName);
+    historyToPath.push(zipPath);
+    historyToName.push(fileName);
+    historyType.push_back("zip");
     deleteFile(filePath);
 }
 
@@ -110,4 +125,44 @@ QString FileManager::generateName(QString dest, QString rename, QString suffix,i
     }
     delete info;
     return name;
+}
+
+void FileManager::undoChange() {
+    if(QString::compare(historyType.top(),"folder",Qt::CaseInsensitive)==0) {
+        QFileInfo* from = new QFileInfo(historyFromPath.top() + "/" + historyFromName.top());
+        QFileInfo* to = new QFileInfo(historyToPath.top() + "/" + historyToName.top());
+        if(!from->exists()&&to->exists()) {
+            QFile::copy(historyToPath.top() + "/" + historyToName.top(),from->absoluteFilePath());
+            deleteFile(historyToPath.top() + "/" + historyToName.top());
+        }
+        delete from;
+        delete to;
+    } else {
+        QuaZip zip(historyToPath.top() + "/" + historyToName.top());
+        QuaZipFile file(&zip);
+        QuaZipFileInfo info;
+        QFile out;
+        char c;
+        zip.setFileNameCodec(QTextCodec::codecForName("utf8"));
+        for(bool more = zip.goToFirstFile();more;more = zip.goToNextFile()) {
+            if(!zip.getCurrentFileInfo(&info)) {
+                break;
+            }
+            if(QString::compare(info.name,historyToName.top())==0) {
+                file.open(QIODevice::ReadOnly);
+                out.setFileName(historyFromPath.top() + "/" + historyFromName.top());
+                out.open(QIODevice::WriteOnly);
+                while(file.getChar(&c)) out.putChar(c);
+                out.close();
+                break;
+            }
+        }
+        file.close();
+        zip.close();
+    }
+    historyFromPath.pop();
+    historyFromName.pop();
+    historyToPath.pop();
+    historyToName.pop();
+    historyType.pop();
 }
