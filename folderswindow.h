@@ -21,6 +21,7 @@ class FoldersWindow : public QWidget
         void refreshFolders();
         void moveFile(QString filePath,QString fileName,int destIndex);
         void copyFile(QString filePath,QString fileName,int destIndex);
+        FileManager* getFileManager();
 
     protected:
 

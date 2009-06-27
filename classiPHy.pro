@@ -6,8 +6,9 @@ TARGET = classiPHy
 CONFIG -= app_bundle
 CONFIG += moc
 CONFIG += static
-INCLUDEPATH += QMAKE_CXXFLAGS += -pipe \
-    -O2
+#LIBS += -L third_party/zlib \
+#    -lz
+INCLUDEPATH += third_party/zlib
 QTPLUGIN += qjpeg \
     qgif \
     qtiff

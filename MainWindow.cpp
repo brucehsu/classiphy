@@ -74,16 +74,17 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
-    bool isCtrl = false, isAlt = false;
     if(event->key()==Qt::Key_Control) {
         foldersWindow->setVisible(true);
         this->activateWindow();
         this->raise();
-        isCtrl = true;
     }
-    if(event->key()==Qt::Key_Alt) {
-        isAlt = true;
+    if(event->key()==Qt::Key_Z) {
+        foldersWindow->getFileManager()->undoChange();
+        this->refreshList();
+        return;
     }
+    if(list->count()==0) return;
     switch(event->key()) {
         case Qt::Key_T :
             //Switch thumbnail mode on/off.
@@ -103,59 +104,54 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
             }
             break;
         case Qt::Key_R:
-            if(isCtrl) {
+            if(event->modifiers()==Qt::ControlModifier) {
                 refreshList();
-            } else if(isAlt) {
-
-            }
-            break;
-        case Qt::Key_Z:
-            if(isCtrl) {
+            } else if(event->modifiers()==Qt::AltModifier) {
 
             }
             break;
         case Qt::Key_1 :
-            if(isAlt) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),0);
+            if(event->modifiers()==Qt::AltModifier) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),0);
             else foldersWindow->moveFile(dir->absolutePath(),list->item(list->currentRow())->text(),0);
             refreshList();
             break;
         case Qt::Key_2 :
-            if(isAlt) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),1);
+            if(event->modifiers()==Qt::AltModifier) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),1);
             else foldersWindow->moveFile(dir->absolutePath(),list->item(list->currentRow())->text(),1);
             refreshList();
             break;
         case Qt::Key_3 :
-            if(isAlt) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),2);
+            if(event->modifiers()==Qt::AltModifier) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),2);
             else foldersWindow->moveFile(dir->absolutePath(),list->item(list->currentRow())->text(),2);
             refreshList();
             break;
         case Qt::Key_4 :
-            if(isAlt) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),3);
+            if(event->modifiers()==Qt::AltModifier) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),3);
             else foldersWindow->moveFile(dir->absolutePath(),list->item(list->currentRow())->text(),3);
             refreshList();
             break;
         case Qt::Key_5 :
-            if(isAlt) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),4);
+            if(event->modifiers()==Qt::AltModifier) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),4);
             else foldersWindow->moveFile(dir->absolutePath(),list->item(list->currentRow())->text(),4);
             refreshList();
             break;
         case Qt::Key_6 :
-            if(isAlt) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),5);
+            if(event->modifiers()==Qt::AltModifier) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),5);
             else foldersWindow->moveFile(dir->absolutePath(),list->item(list->currentRow())->text(),5);
             refreshList();
             break;
         case Qt::Key_7 :
-            if(isAlt) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),6);
+            if(event->modifiers()==Qt::AltModifier) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),6);
             else foldersWindow->moveFile(dir->absolutePath(),list->item(list->currentRow())->text(),6);
             refreshList();
             break;
         case Qt::Key_8 :
-            if(isAlt) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),7);
+            if(event->modifiers()==Qt::AltModifier) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),7);
             else foldersWindow->moveFile(dir->absolutePath(),list->item(list->currentRow())->text(),7);
             refreshList();
             break;
         case Qt::Key_9 :
-            if(isAlt) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),8);
+            if(event->modifiers()==Qt::AltModifier) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),8);
             else foldersWindow->moveFile(dir->absolutePath(),list->item(list->currentRow())->text(),8);
             refreshList();
             break;

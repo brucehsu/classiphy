@@ -7,7 +7,7 @@ CONFIG += qt warn_on
 QT -= gui
 LIBS += -lz
 DEPENDPATH += .
-INCLUDEPATH += .
+INCLUDEPATH += C:/Qt/4.5.1/src/3rdparty/zlib
 
 # Input
 HEADERS += crypt.h \

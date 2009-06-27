@@ -15,7 +15,7 @@ class FileManager
         void copyFileToFolder(QString originPath, QString originName,QString newPath,QString rename,int digits);
         void moveFileToFolder(QString originPath, QString originName,QString newPath,QString newName);
         void moveFileToFolder(QString originPath, QString originName,QString newPath,QString rename,int digits);
-        void copyFileToZip(QString filePath, QString fileName, QString zipPath);
+        void copyFileToZip(QString filePath, QString fileName, QString zipPath,QString insideName);
         void copyFileToZip(QString filePath, QString fileName, QString zipPath,QString rename,int digits);
         void moveFileToZip(QString filePath, QString fileName, QString zipPath);
         void moveFileToZip(QString filePath, QString fileName, QString zipPath,QString rename,int digits);

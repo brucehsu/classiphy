@@ -123,6 +123,9 @@ void FolderSettingDialog::accept() {
     if(renameCheck->isChecked()) {
         xmlManager->setProfileDirRename(currentIndex,renameEdit->text());
         xmlManager->setProfileDirDigits(currentIndex,QString::number(digitsSpin->value()));
+    } else {
+        xmlManager->setProfileDirRename(currentIndex,"");
+        xmlManager->setProfileDirDigits(currentIndex,"");
     }
 
     xmlManager->getProfileDirInfos();

@@ -113,7 +113,11 @@ void FoldersWindow::copyFile(QString filePath,QString fileName, int destIndex) {
         if(renames->at(destIndex)!="")
             fileManager->copyFileToZip(filePath,fileName,paths->at(destIndex),renames->at(destIndex),(digits->at(destIndex)).toInt());
         else
-            fileManager->copyFileToZip(filePath,fileName,paths->at(destIndex));
+            fileManager->copyFileToZip(filePath,fileName,paths->at(destIndex),fileName);
     }
     delete info;
+}
+
+FileManager* FoldersWindow::getFileManager() {
+    return this->fileManager;
 }
