@@ -6,6 +6,7 @@ FileManager::FileManager()
 
 void FileManager::deleteFile(QString path) {
     QFile *originFile = new QFile(path);
+    if(!originFile->exists()) return;
     originFile->remove();
     delete originFile;
 }
@@ -111,21 +112,21 @@ QString FileManager::generateName(QString dest, QString rename, QString suffix,i
         name.append(fileCount + "." + suffix);
     } else {
         QuaZip zip(dest);
+        QString fileCount;
         if(!info->exists()) {
-            zip.open(QuaZip::mdCreate);
+            fileCount = QString::number(1);
+        } else {
+            zip.open(QuaZip::mdUnzip);
+            zip.setFileNameCodec(QTextCodec::codecForName("utf8"));
+            fileCount = QString::number(zip.getEntriesCount()+1);
             zip.close();
         }
-        if(zip.open(QuaZip::mdUnzip)) {
-            zip.setFileNameCodec(QTextCodec::codecForName("utf8"));
-        }
-        QString fileCount = QString::number(zip.getEntriesCount()+1);
         if(fileCount.count()<digits) {
             int difference = digits - fileCount.count();
             for(int i=0;i<difference;i++) {
                 fileCount.insert(0,"0");
             }
         }
-        zip.close();
         name.append(fileCount + "." + suffix);
     }
     delete info;
@@ -144,11 +145,13 @@ void FileManager::undoChange() {
         delete from;
         delete to;
     } else {
-        QuaZip zip(historyToPath.top() + "/" + historyToName.top());
+        QuaZip zip(historyToPath.top());
         QuaZipFile file(&zip);
         QuaZipFileInfo info;
         QFile out;
         char c;
+        QString tmp = historyToPath.top() + "/" + historyToName.top();
+        zip.open(QuaZip::mdUnzip);
         zip.setFileNameCodec(QTextCodec::codecForName("utf8"));
         for(bool more = zip.goToFirstFile();more;more = zip.goToNextFile()) {
             if(!zip.getCurrentFileInfo(&info)) {
@@ -164,10 +167,47 @@ void FileManager::undoChange() {
             }
         }
         zip.close();
+        deleteFileInZip(historyToPath.top(),historyToName.top());
     }
     historyFromPath.pop();
     historyFromName.pop();
     historyToPath.pop();
     historyToName.pop();
     historyType.pop();
+}
+
+void FileManager::deleteFileInZip(QString zipPath, QString insideName) {
+    if(!QFile::exists(zipPath)) return;
+    QuaZip zip(zipPath),tzip(zipPath+".tmp");
+    zip.open(QuaZip::mdUnzip);
+    tzip.open(QuaZip::mdCreate);
+    QuaZipFile origin(&zip);
+    QuaZipFileInfo info;
+    char c;
+    int fcount = 0;
+    zip.setFileNameCodec(QTextCodec::codecForName("utf8"));
+    for(bool more = zip.goToFirstFile();more;more = zip.goToNextFile()) {
+        if(!zip.getCurrentFileInfo(&info)) {
+            break;
+        }
+        if(QString::compare(info.name,insideName)!=0) {
+            origin.open(QIODevice::ReadOnly);
+            QuaZipFile tmp(&tzip);
+            tmp.open(QIODevice::WriteOnly,QuaZipNewInfo(info.name));
+            while(origin.getChar(&c)&&tmp.putChar(c)) ;
+            origin.close();
+            tmp.close();
+            fcount++;
+            tzip.close();
+            tzip.open(QuaZip::mdAdd);
+        }
+    }
+    zip.close();
+    tzip.close();
+    QFile::remove(zipPath);
+    if(fcount==0) {
+        QFile::remove(zipPath+".tmp");
+    } else {
+        QFile::rename(zipPath+".tmp",zipPath);
+    }
 }

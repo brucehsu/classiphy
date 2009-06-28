@@ -10,7 +10,6 @@ class FileManager
 {
     public:
         FileManager();
-        void deleteFile(QString path);
         void copyFileToFolder(QString originPath, QString originName,QString newPath,QString newName);
         void copyFileToFolder(QString originPath, QString originName,QString newPath,QString rename,int digits);
         void moveFileToFolder(QString originPath, QString originName,QString newPath,QString newName);
@@ -23,6 +22,8 @@ class FileManager
 
     protected:
         QString generateName(QString dest, QString rename, QString suffix,int digits);
+        void deleteFile(QString path);
+        void deleteFileInZip(QString zipPath, QString insideName);
 
     private:
         QStack<QString> historyFromPath,historyFromName, historyToPath, historyToName,historyType;
