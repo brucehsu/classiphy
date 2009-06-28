@@ -124,3 +124,8 @@ void FoldersWindow::copyFile(QString filePath,QString fileName, int destIndex) {
 FileManager* FoldersWindow::getFileManager() {
     return this->fileManager;
 }
+
+void FoldersWindow::setVisible(bool visible) {
+    this->QWidget::setVisible(visible);
+    emit visibility(visible);
+}

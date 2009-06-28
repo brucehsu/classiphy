@@ -39,8 +39,10 @@ class FoldersWindow : public QWidget
     public slots:
         void getProfileDataByIndex(int);
         void refreshProfiles();
+        void setVisible(bool visible);
 
         signals:
+            void visibility(bool);
 };
 
 #endif // FOLDERSWINDOW_H

@@ -6,6 +6,7 @@ MainWindow::MainWindow() {
     list = new NoSearchList();
     selectFolderBtn = new QPushButton(QObject::trUtf8("Select Folder"));
     foldersWindowBtn = new QPushButton(QObject::trUtf8("Folders Window"));
+    foldersWindowBtn->setCheckable(true);
     aboutBtn = new QPushButton(QObject::trUtf8("About"));
     picScroll = new QScrollArea();
     image = new ImageLabel();
@@ -34,7 +35,9 @@ MainWindow::MainWindow() {
     QObject::connect(selectFolderDlg,SIGNAL(fileSelected(QString)),this,SLOT(setDir(QString)));
     QObject::connect(aboutBtn,SIGNAL(clicked()),aboutDlg,SLOT(exec()));
     QObject::connect(list,SIGNAL(itemSelectionChanged()),this,SLOT(setImage()));
-    QObject::connect(foldersWindowBtn,SIGNAL(clicked()),foldersWindow,SLOT(show()));
+    //QObject::connect(foldersWindowBtn,SIGNAL(clicked()),foldersWindow,SLOT(show()));
+    QObject::connect(foldersWindowBtn,SIGNAL(toggled(bool)),foldersWindow,SLOT(setVisible(bool)));
+    QObject::connect(foldersWindow,SIGNAL(visibility(bool)),foldersWindowBtn,SLOT(setChecked(bool)));
 
     this->setLayout(layout);
     this->setWindowTitle("classiPHy v" + version);
@@ -75,7 +78,11 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
     if(event->key()==Qt::Key_Control) {
-        foldersWindow->setVisible(true);
+        if(foldersWindow->isVisible()) {
+            foldersWindow->setVisible(false);
+        } else {
+            foldersWindow->setVisible(true);
+        }
         this->activateWindow();
         this->raise();
     }
@@ -161,11 +168,11 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
 }
 
 void MainWindow::keyReleaseEvent(QKeyEvent *event) {
-    if(event->key()==Qt::Key_Control) {
+    /*if(event->key()==Qt::Key_Control) {
         foldersWindow->setVisible(false);
         this->activateWindow();
         this->raise();
-    }
+    }*/
 }
 
 void MainWindow::closeEvent(QCloseEvent *event) {
