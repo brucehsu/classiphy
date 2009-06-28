@@ -75,6 +75,9 @@ void FoldersWindow::refreshFolders() {
             pixtemp.scaled(80,80,Qt::KeepAspectRatio,Qt::FastTransformation);
             folderBtns[i]->setIcon(pixtemp);
             folderBtns[i]->setText("");
+        } else {
+            QPixmap empty = QPixmap();
+            folderBtns[i]->setIcon(empty);
         }
     }
 }

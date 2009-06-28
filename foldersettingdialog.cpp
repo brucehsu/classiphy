@@ -63,6 +63,7 @@ FolderSettingDialog::FolderSettingDialog(QObject *parentw, XMLSettingsManager* m
     QObject::connect(zipRadioBtn,SIGNAL(toggled(bool)),this,SLOT(setDestZipMode(bool)));
     QObject::connect(selectDestBtn,SIGNAL(clicked()),destDlg,SLOT(show()));
     QObject::connect(selectThumbBtn,SIGNAL(clicked()),thumbDlg,SLOT(show()));
+    QObject::connect(clearThumbBtn,SIGNAL(clicked()),thumbEdit,SLOT(clear()));
     QObject::connect(destDlg,SIGNAL(fileSelected(QString)),this,SLOT(setDest(QString)));
     QObject::connect(thumbDlg,SIGNAL(fileSelected(QString)),this,SLOT(setThumb(QString)));
     QObject::connect(confirmBtn,SIGNAL(clicked()),this,SLOT(accept()));
@@ -72,6 +73,8 @@ FolderSettingDialog::FolderSettingDialog(QObject *parentw, XMLSettingsManager* m
 
     xmlManager = manager;
     this->setModal(true);
+    this->setWindowFlags(Qt::X11BypassWindowManagerHint);
+    this->setWindowFlags(Qt::WindowStaysOnTopHint);
     this->setWindowTitle(QObject::trUtf8("Folder Setting"));
     this->setFixedSize(300,350);
 }
@@ -80,7 +83,8 @@ void FolderSettingDialog::show(int num) {
     QString path = xmlManager->getProfileDirPath()->at(num);
     QFileInfo *info = new QFileInfo(path);
     destEdit->setText(path);
-    destDlg->setDirectory(path);
+    destDlg->setDirectory(info->isDir()? path : info->absoluteDir());
+    thumbDlg->setDirectory(info->isDir()? path : info->absoluteDir());
 
     if(xmlManager->getProfileDirThumb()->at(num)!="") {
         QFileInfo *thumbInfo = new QFileInfo(xmlManager->getProfileDirThumb()->at(num));
