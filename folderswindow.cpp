@@ -1,4 +1,5 @@
 #include "folderswindow.h"
+#include "MainWindow.h"
 
 FoldersWindow::FoldersWindow() {
     //Initialize objects
@@ -34,6 +35,7 @@ FoldersWindow::FoldersWindow() {
     //Connect slots and signals
     QObject::connect(profilesCombo,SIGNAL(currentIndexChanged(int)),this,SLOT(getProfileDataByIndex(int)));
     QObject::connect(editProfileBtn,SIGNAL(clicked()),profileDlg,SLOT(show()));
+    QObject::connect(profileDlg,SIGNAL(accepted()),this,SLOT(refreshProfiles()));
     for(int i=0;i<9;i++) {
         QObject::connect(folderBtns[i],SIGNAL(clicked()),folderBtns[i],SLOT(btnClick()));
         QObject::connect(folderBtns[i],SIGNAL(clicked(int)),settingDlg,SLOT(show(int)));
@@ -68,6 +70,8 @@ void FoldersWindow::refreshFolders() {
             } else {
                 folderBtns[i]->setText(info->fileName());
             }
+        } else {
+            folderBtns[i]->setText("");
         }
         if(thumbs->at(i)!="") {
             QPixmap pixtemp = QPixmap();
@@ -88,35 +92,55 @@ void FoldersWindow::refreshProfiles() {
 }
 
 void FoldersWindow::moveFile(QString filePath,QString fileName, int destIndex) {
+    if(paths->at(destIndex)=="") {
+        ((MainWindow*)(parent))->setStatus(QObject::trUtf8("Error: empty destination."));
+        return;
+    }
     QFileInfo *info = new QFileInfo();
     info->setFile(paths->at(destIndex));
     if(info->isDir()) {
-        if(renames->at(destIndex)!="")
+            if(renames->at(destIndex)!="") {
             fileManager->moveFileToFolder(filePath,fileName,paths->at(destIndex),renames->at(destIndex),(digits->at(destIndex)).toInt());
-        else
+        } else {
             fileManager->moveFileToFolder(filePath,fileName,paths->at(destIndex),fileName);
+        }        
+        ((MainWindow*)(parent))->setStatus(filePath + "/" + fileName +
+                                                 QObject::trUtf8(" has been moved to ") + paths->at(destIndex));
     } else {
         if(renames->at(destIndex)!="")
             fileManager->moveFileToZip(filePath,fileName,paths->at(destIndex),renames->at(destIndex),(digits->at(destIndex)).toInt());
         else
             fileManager->moveFileToZip(filePath,fileName,paths->at(destIndex));
+
+        ((MainWindow*)(parent))->setStatus(filePath + "/" + fileName +
+                                                 QObject::trUtf8(" has been moved to ") + paths->at(destIndex));
     }
     delete info;
 }
 
 void FoldersWindow::copyFile(QString filePath,QString fileName, int destIndex) {
+    if(paths->at(destIndex)=="") {
+        ((MainWindow*)(parent))->setStatus(QObject::trUtf8("Error: empty destination."));
+        return;
+    }
     QFileInfo *info = new QFileInfo();
     info->setFile(paths->at(destIndex));
     if(info->isDir()) {
-        if(renames->at(destIndex)!="")
+        if(renames->at(destIndex)!="") {
             fileManager->copyFileToFolder(filePath,fileName,paths->at(destIndex),renames->at(destIndex),(digits->at(destIndex)).toInt());
-        else
+        } else {
             fileManager->copyFileToFolder(filePath,fileName,paths->at(destIndex),fileName);
+        }
+        ((MainWindow*)(parent))->setStatus(filePath + "/" + fileName +
+                                                 QObject::trUtf8(" has been copied to ") + paths->at(destIndex));
     } else {
-        if(renames->at(destIndex)!="")
+        if(renames->at(destIndex)!="") {
             fileManager->copyFileToZip(filePath,fileName,paths->at(destIndex),renames->at(destIndex),(digits->at(destIndex)).toInt());
-        else
+        } else {
             fileManager->copyFileToZip(filePath,fileName,paths->at(destIndex),fileName);
+        }
+        ((MainWindow*)(parent))->setStatus(filePath + "/" + fileName +
+                                                 QObject::trUtf8(" has been copied to ") + paths->at(destIndex));
     }
     delete info;
 }
@@ -128,4 +152,28 @@ FileManager* FoldersWindow::getFileManager() {
 void FoldersWindow::setVisible(bool visible) {
     this->QWidget::setVisible(visible);
     emit visibility(visible);
+}
+
+void FoldersWindow::setParent(QWidget *par) {
+    parent = par;
+}
+
+void FoldersWindow::setPrevProfile() {
+    if(profilesCombo->count()>1) {
+        if(profilesCombo->currentIndex()!=0) {
+            profilesCombo->setCurrentIndex(profilesCombo->currentIndex()-1);
+        } else {
+            profilesCombo->setCurrentIndex(profilesCombo->count()-1);
+        }
+    }
+}
+
+void FoldersWindow::setNextProfile() {
+    if(profilesCombo->count()>1) {
+        if(profilesCombo->currentIndex()==profilesCombo->count()-1) {
+            profilesCombo->setCurrentIndex(0);
+        } else {
+            profilesCombo->setCurrentIndex(profilesCombo->currentIndex()+1);
+        }
+    }
 }

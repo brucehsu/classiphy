@@ -15,13 +15,15 @@ MainWindow::MainWindow() {
     foldersWindow = new FoldersWindow();
     layout = new QGridLayout();
     dir = new QDir();
+    status = new QStatusBar(this);
 
     //Arrange layout.
-    layout->addWidget(picScroll,0,0,9,11);
+    layout->addWidget(picScroll,0,0,9,12);
     layout->addWidget(list,0,12,6,2);
     layout->addWidget(foldersWindowBtn,6,12,1,2);
     layout->addWidget(selectFolderBtn,7,12,1,2);
     layout->addWidget(aboutBtn,8,12,1,2);
+    layout->addWidget(status,9,0,1,14);
 
     //Set selectFolderDlg.
     selectFolderDlg->setFileMode(QFileDialog::DirectoryOnly);
@@ -30,12 +32,19 @@ MainWindow::MainWindow() {
     //Set list.
     list->setSelectionMode(QListWidget::SingleSelection);
 
+    //Set status
+    status->setFixedHeight(30);
+    status->setStyleSheet("QStatusBar {border: 2px solid grey;border-radius: 3px;}");
+    status->showMessage(QObject::trUtf8("Ready"));
+
+    //set foldersWindow
+    foldersWindow->setParent(this);
+
     //Connect slots and signals.
     QObject::connect(selectFolderBtn,SIGNAL(clicked()),selectFolderDlg,SLOT(open()));
     QObject::connect(selectFolderDlg,SIGNAL(fileSelected(QString)),this,SLOT(setDir(QString)));
     QObject::connect(aboutBtn,SIGNAL(clicked()),aboutDlg,SLOT(exec()));
     QObject::connect(list,SIGNAL(itemSelectionChanged()),this,SLOT(setImage()));
-    //QObject::connect(foldersWindowBtn,SIGNAL(clicked()),foldersWindow,SLOT(show()));
     QObject::connect(foldersWindowBtn,SIGNAL(toggled(bool)),foldersWindow,SLOT(setVisible(bool)));
     QObject::connect(foldersWindow,SIGNAL(visibility(bool)),foldersWindowBtn,SLOT(setChecked(bool)));
 
@@ -65,6 +74,7 @@ void MainWindow::setDir(QString dirname) {
     list->clear();
     list->addItems(items);
     list->setCurrentRow(0);
+    selectFolderDlg->setDirectory(*dir);
 }
 
 void MainWindow::setImage() {
@@ -77,7 +87,8 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
-    if(event->key()==Qt::Key_Control) {
+    if(event->key()==Qt::Key_Control) { // pressing ctrl
+        //Toggle folders window
         if(foldersWindow->isVisible()) {
             foldersWindow->setVisible(false);
         } else {
@@ -86,12 +97,16 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         this->activateWindow();
         this->raise();
     }
-    if(event->key()==Qt::Key_Z) {
+
+    if(event->key()==Qt::Key_Z) { //pressing Z
+        //Undo change
         foldersWindow->getFileManager()->undoChange();
         this->refreshList();
         return;
     }
+
     if(list->count()==0) return;
+
     switch(event->key()) {
         case Qt::Key_T :
             //Switch thumbnail mode on/off.
@@ -103,20 +118,30 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
                 int deletion = QMessageBox::warning(this,QObject::trUtf8("Deleting File: ") + list->currentItem()->text(),
                     "Are you sure?", QMessageBox::Yes | QMessageBox::No);
                 if(deletion==QMessageBox::Yes) {
-                    QFile *deletedFile = new QFile(dir->absolutePath() + "/" + list->currentItem()->text());
-                    deletedFile->remove();
+                    QFile::remove(dir->absolutePath() + "/" + list->currentItem()->text());
                     refreshList();
-                    delete deletedFile;
                 }
             }
             break;
         case Qt::Key_R:
-            if(event->modifiers()==Qt::ControlModifier) {
+            if(event->modifiers()==Qt::NoModifier) { // pressing R
+                //Refresh current directory
                 refreshList();
-            } else if(event->modifiers()==Qt::AltModifier) {
-
+            } else if(event->modifiers()==Qt::AltModifier) { // pressing Alt+R
+                //Rename current selected file
+                bool isOk = false;
+                QString newName = QInputDialog::getText(this,QObject::trUtf8("Renaming ") + list->item(list->currentRow())->text(),
+                                                        QObject::trUtf8("Please input a new file name: ") ,
+                                                        QLineEdit::Normal,list->item(list->currentRow())->text(),&isOk);
+                if(isOk) {
+                    QFile::rename(dir->absolutePath()+"/"+list->item(list->currentRow())->text(),dir->absolutePath()+"/"+newName);
+                    refreshList();
+                }
             }
             break;
+
+        //pressing Alt + num / num only
+        //copy file / move file
         case Qt::Key_1 :
             if(event->modifiers()==Qt::AltModifier) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),0);
             else foldersWindow->moveFile(dir->absolutePath(),list->item(list->currentRow())->text(),0);
@@ -162,6 +187,15 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
             else foldersWindow->moveFile(dir->absolutePath(),list->item(list->currentRow())->text(),8);
             refreshList();
             break;
+
+        //Change current profile
+        //pressing left for previous, right for next
+        case Qt::Key_Left :
+            foldersWindow->setPrevProfile();
+            break;
+        case Qt::Key_Right :
+            foldersWindow->setNextProfile();
+            break;
         default:
             event->ignore();
     }
@@ -185,4 +219,8 @@ void MainWindow::refreshList() {
     if(currentIndex>=list->count()) {
         list->setCurrentRow(list->count()-1);
     } else list->setCurrentRow(currentIndex);
+}
+
+void MainWindow::setStatus(QString stat) {
+    status->showMessage(stat);
 }

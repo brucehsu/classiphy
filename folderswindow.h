@@ -21,6 +21,9 @@ class FoldersWindow : public QWidget
         void refreshFolders();
         void moveFile(QString filePath,QString fileName,int destIndex);
         void copyFile(QString filePath,QString fileName,int destIndex);
+        void setParent(QWidget *par);
+        void setPrevProfile();
+        void setNextProfile();
         FileManager* getFileManager();
 
     protected:
@@ -35,6 +38,7 @@ class FoldersWindow : public QWidget
         FolderSettingDialog *settingDlg;
         ProfileListDialog *profileDlg;
         FileManager *fileManager;
+        QWidget* parent;
 
     public slots:
         void getProfileDataByIndex(int);

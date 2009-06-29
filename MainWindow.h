@@ -10,6 +10,7 @@
 #include <QDir>
 #include <QFile>
 #include <QMessageBox>
+#include <QStatusBar>
 #include "nosearchlist.h"
 #include "imagelabel.h"
 #include "aboutdialog.h"
@@ -21,6 +22,7 @@
         public:
             MainWindow();
             void refreshList();
+            void setStatus(QString stat);
             //~MainWindow();
 
         protected:
@@ -36,6 +38,7 @@
             QGridLayout *layout;
             QFileDialog *selectFolderDlg;
             QDir *dir;
+            QStatusBar *status;
             ImageLabel *image;
             AboutDialog *aboutDlg;
             FoldersWindow *foldersWindow;
