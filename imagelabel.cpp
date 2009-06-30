@@ -17,7 +17,7 @@ void ImageLabel::setImage(QString path) {
         QScrollArea *scroll = (QScrollArea*) parent();
         int view_height = scroll->viewport()->height();
         int view_width = scroll->viewport()->width();
-        if(pixmap.height()>view_height||pixmap.width()>view_height) {
+        if(pixmap.height()>view_height||pixmap.width()>view_width) {
             pixmap = pixmap.scaled(view_width,view_height,Qt::KeepAspectRatio,Qt::SmoothTransformation);
         }
     }

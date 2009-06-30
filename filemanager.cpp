@@ -13,6 +13,8 @@ void FileManager::deleteFile(QString path) {
 
 void FileManager::copyFileToFolder(QString originPath, QString originName,QString newPath,QString newName) {
     QFile *originFile = new QFile(originPath + "/" + originName);
+    if(QString::compare(originPath,newPath)==0 && QString::compare(originName,newName)==0) return;
+    if(QFile::exists(newPath+"/"+newName)) QFile::remove(newPath+"/"+newName);
     originFile->copy(newPath + "/" + newName);
     delete originFile;
 }
@@ -30,6 +32,7 @@ void FileManager::copyFileToFolder(QString originPath, QString originName,QStrin
 }
 
 void FileManager::moveFileToFolder(QString originPath, QString originName,QString newPath,QString newName) {
+    if(QString::compare(originPath,newPath)==0 && QString::compare(originName,newName)==0) return;
     copyFileToFolder(originPath,originName, newPath, newName);
     historyFromPath.push(originPath);
     historyFromName.push(originName);
