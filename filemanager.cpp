@@ -196,6 +196,7 @@ void FileManager::deleteFileInZip(QString zipPath, QString insideName) {
         if(QString::compare(info.name,insideName)!=0) {
             origin.open(QIODevice::ReadOnly);
             QuaZipFile tmp(&tzip);
+            tzip.setFileNameCodec(QTextCodec::codecForName("utf8"));
             tmp.open(QIODevice::WriteOnly,QuaZipNewInfo(info.name));
             while(origin.getChar(&c)&&tmp.putChar(c)) ;
             origin.close();

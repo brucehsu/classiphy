@@ -68,18 +68,22 @@ void MainWindow::setDir(QString dirname) {
 
     //Pre-select the first item to avoid runtime error when clearing the list.
     list->setCurrentRow(0);
-    image->clearImage();
 
     //Clear the list.
     list->clear();
+    image->clearImage();
     list->addItems(items);
     list->setCurrentRow(0);
     selectFolderDlg->setDirectory(*dir);
 }
 
 void MainWindow::setImage() {
-    QString path = dir->absolutePath() + "/" + list->currentItem()->text();
-    image->setImage(path);
+    if(list->count()==0) {
+        image->clearImage();
+    } else {
+        QString path = dir->absolutePath() + "/" + list->currentItem()->text();
+        image->setImage(path);
+    }
 }
 
 void MainWindow::resizeEvent(QResizeEvent *event) {
@@ -101,7 +105,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
     if(event->key()==Qt::Key_Z) { //pressing Z
         //Undo change
         foldersWindow->getFileManager()->undoChange();
-        this->refreshList();
+        refreshList();
         return;
     } else if(event->key()==Qt::Key_Left) { // pressing left
         //Switch current profile to previous profile
@@ -125,7 +129,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         case Qt::Key_Delete : {
                 //Delete current selected file.
                 int deletion = QMessageBox::warning(this,QObject::trUtf8("Deleting File: ") + list->currentItem()->text(),
-                    "Are you sure?", QMessageBox::Yes | QMessageBox::No);
+                    "Once the file is deleted, the operation cannot be undone.\nAre you sure? ", QMessageBox::Yes | QMessageBox::No);
                 if(deletion==QMessageBox::Yes) {
                     QFile::remove(dir->absolutePath() + "/" + list->currentItem()->text());
                     refreshList();
@@ -265,7 +269,8 @@ void MainWindow::closeEvent(QCloseEvent *event) {
 }
 
 void MainWindow::refreshList() {
-    int currentIndex = list->currentRow();
+    int currentIndex = 0;
+    if(list->count()!=0) currentIndex = list->currentRow();
     setDir(dir->absolutePath());
     if(currentIndex>=list->count()) {
         list->setCurrentRow(list->count()-1);
