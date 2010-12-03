@@ -106,14 +106,6 @@ void FoldersWindow::moveFile(QString filePath,QString fileName, int destIndex) {
         }        
         ((MainWindow*)(parent))->setStatus(filePath + "/" + fileName +
                                                  QObject::trUtf8(" has been moved to ") + paths->at(destIndex));
-    } else {
-        if(renames->at(destIndex)!="")
-            fileManager->moveFileToZip(filePath,fileName,paths->at(destIndex),renames->at(destIndex),(digits->at(destIndex)).toInt());
-        else
-            fileManager->moveFileToZip(filePath,fileName,paths->at(destIndex));
-
-        ((MainWindow*)(parent))->setStatus(filePath + "/" + fileName +
-                                                 QObject::trUtf8(" has been moved to ") + paths->at(destIndex));
     }
     delete info;
 }
@@ -130,14 +122,6 @@ void FoldersWindow::copyFile(QString filePath,QString fileName, int destIndex) {
             fileManager->copyFileToFolder(filePath,fileName,paths->at(destIndex),renames->at(destIndex),(digits->at(destIndex)).toInt());
         } else {
             fileManager->copyFileToFolder(filePath,fileName,paths->at(destIndex),fileName);
-        }
-        ((MainWindow*)(parent))->setStatus(filePath + "/" + fileName +
-                                                 QObject::trUtf8(" has been copied to ") + paths->at(destIndex));
-    } else {
-        if(renames->at(destIndex)!="") {
-            fileManager->copyFileToZip(filePath,fileName,paths->at(destIndex),renames->at(destIndex),(digits->at(destIndex)).toInt());
-        } else {
-            fileManager->copyFileToZip(filePath,fileName,paths->at(destIndex),fileName);
         }
         ((MainWindow*)(parent))->setStatus(filePath + "/" + fileName +
                                                  QObject::trUtf8(" has been copied to ") + paths->at(destIndex));
