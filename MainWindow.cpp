@@ -10,7 +10,6 @@ MainWindow::MainWindow() {
     aboutBtn = new QPushButton(QObject::trUtf8("About"));
     picScroll = new QScrollArea();
     image = new ImageLabel();
-    selectFolderDlg = new QFileDialog(this,QObject::trUtf8("Select a folder"));
     aboutDlg = new AboutDialog();
     foldersWindow = new FoldersWindow();
     layout = new QGridLayout();
@@ -25,10 +24,6 @@ MainWindow::MainWindow() {
     layout->addWidget(aboutBtn,8,12,1,2);
     layout->addWidget(status,9,0,1,14);
 
-    //Set selectFolderDlg.
-    selectFolderDlg->setFileMode(QFileDialog::DirectoryOnly);
-    selectFolderDlg->setViewMode(QFileDialog::List);
-
     //Set list.
     list->setSelectionMode(QListWidget::SingleSelection);
 
@@ -41,15 +36,14 @@ MainWindow::MainWindow() {
     foldersWindow->setParent(this);
 
     //Connect slots and signals.
-    QObject::connect(selectFolderBtn,SIGNAL(clicked()),selectFolderDlg,SLOT(open()));
-    QObject::connect(selectFolderDlg,SIGNAL(fileSelected(QString)),this,SLOT(setDir(QString)));
+    QObject::connect(selectFolderBtn,SIGNAL(clicked()),this,SLOT(selectDir()));
     QObject::connect(aboutBtn,SIGNAL(clicked()),aboutDlg,SLOT(exec()));
     QObject::connect(list,SIGNAL(itemSelectionChanged()),this,SLOT(setImage()));
     QObject::connect(foldersWindowBtn,SIGNAL(toggled(bool)),foldersWindow,SLOT(setVisible(bool)));
     QObject::connect(foldersWindow,SIGNAL(visibility(bool)),foldersWindowBtn,SLOT(setChecked(bool)));
 
     this->setLayout(layout);
-    this->setWindowTitle("classiPHy v" + version);
+    this->setWindowTitle("classiPHy v" + version + QDir::currentPath());
     this->resize(720,500);
     this->show();
 
@@ -58,6 +52,15 @@ MainWindow::MainWindow() {
     picScroll->setWidget(image);
     image->setParent(picScroll);
     image->show();
+}
+
+void MainWindow::selectDir() {
+    QString path = QFileDialog::getExistingDirectory(this, QObject::trUtf8("Select a folder"),
+                                                     dir->currentPath()==NULL ? QDir::currentPath() : dir->currentPath(),
+                                                     QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    if(path!=NULL) {
+        this->setDir(path);
+    }
 }
 
 void MainWindow::setDir(QString dirname) {
@@ -74,7 +77,6 @@ void MainWindow::setDir(QString dirname) {
     image->clearImage();
     list->addItems(items);
     list->setCurrentRow(0);
-    selectFolderDlg->setDirectory(*dir);
 }
 
 void MainWindow::setImage() {

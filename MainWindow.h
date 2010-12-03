@@ -44,6 +44,7 @@
             FoldersWindow *foldersWindow;
 
         public slots:
+            void selectDir();
             void setDir(QString);
             void setImage();
 

@@ -41,6 +41,8 @@ class FolderSettingDialog : public QDialog
 
     public slots:
         void show(int);
+        void selectDest();
+        void selectThumb();
         void setDestFolderMode(bool);
         void setDestZipMode(bool);
         void setDest(QString);
