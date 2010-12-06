@@ -2,7 +2,7 @@
 # Project created by QtCreator 2009-01-26T19:25:06
 # -------------------------------------------------
 QT += xml
-TARGET = classiPHy
+TARGET = classiphy
 CONFIG -= app_bundle
 CONFIG += moc
 CONFIG += static
@@ -12,7 +12,7 @@ QTPLUGIN += qjpeg \
 TEMPLATE = app
 TRANSLATIONS += classiPHy_lang.ts
 SOURCES += main.cpp \
-    MainWindow.cpp \
+    mainwindow.cpp \
     nosearchlist.cpp \
     imagelabel.cpp \
     aboutdialog.cpp \
@@ -22,7 +22,7 @@ SOURCES += main.cpp \
     foldersettingdialog.cpp \
     profilelistdialog.cpp \
     filemanager.cpp
-HEADERS += MainWindow.h \
+HEADERS += mainwindow.h \
     const.h \
     nosearchlist.h \
     imagelabel.h \

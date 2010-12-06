@@ -1,5 +1,5 @@
 #include "folderswindow.h"
-#include "MainWindow.h"
+#include "mainwindow.h"
 
 FoldersWindow::FoldersWindow() {
     //Initialize objects
