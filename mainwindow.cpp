@@ -43,7 +43,7 @@ MainWindow::MainWindow() {
     QObject::connect(foldersWindow,SIGNAL(visibility(bool)),foldersWindowBtn,SLOT(setChecked(bool)));
 
     this->setLayout(layout);
-    this->setWindowTitle("classiPHy v" + version + QDir::currentPath());
+    this->setWindowTitle("classiPHy v" + version);
     this->resize(720,500);
     this->show();
 
@@ -77,6 +77,7 @@ void MainWindow::setDir(QString dirname) {
     image->clearImage();
     list->addItems(items);
     list->setCurrentRow(0);
+    this->setWindowTitle("classiPHy v" + version + " - " + dir->currentPath());
 }
 
 void MainWindow::setImage() {
