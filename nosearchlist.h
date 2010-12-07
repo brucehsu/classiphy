@@ -6,10 +6,11 @@
 class NoSearchList : public QListWidget
 {
     public:
-        NoSearchList();
+        NoSearchList(QWidget *parent);
 
     protected:
         virtual void keyboardSearch(const QString &search);
+        void keyPressEvent(QKeyEvent *event);
 };
 
 #endif // NOSEARCHLIST_H

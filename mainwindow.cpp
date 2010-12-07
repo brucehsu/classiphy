@@ -3,7 +3,7 @@
 
 MainWindow::MainWindow() {
     //Initialize Objects.
-    list = new NoSearchList();
+    list = new NoSearchList(this);
     selectFolderBtn = new QPushButton(QObject::trUtf8("Select Folder"));
     foldersWindowBtn = new QPushButton(QObject::trUtf8("Folders Window"));
     foldersWindowBtn->setCheckable(true);
@@ -94,6 +94,35 @@ void MainWindow::resizeEvent(QResizeEvent *event) {
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
+    this->processKeyEvent(event);
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent *event) {
+    /*if(event->key()==Qt::Key_Control) {
+        foldersWindow->setVisible(false);
+        this->activateWindow();
+        this->raise();
+    }*/
+}
+
+void MainWindow::closeEvent(QCloseEvent *event) {
+    QApplication::quit();
+}
+
+void MainWindow::refreshList() {
+    int currentIndex = 0;
+    if(list->count()!=0) currentIndex = list->currentRow();
+    setDir(dir->absolutePath());
+    if(currentIndex>=list->count()) {
+        list->setCurrentRow(list->count()-1);
+    } else list->setCurrentRow(currentIndex);
+}
+
+void MainWindow::setStatus(QString stat) {
+    status->showMessage(stat);
+}
+
+void MainWindow::processKeyEvent(QKeyEvent *event) {
     if(event->key()==Qt::Key_Control) { // pressing ctrl
         //Toggle folders window
         if(foldersWindow->isVisible()) {
@@ -258,29 +287,4 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
         default:
             event->ignore();
     }
-}
-
-void MainWindow::keyReleaseEvent(QKeyEvent *event) {
-    /*if(event->key()==Qt::Key_Control) {
-        foldersWindow->setVisible(false);
-        this->activateWindow();
-        this->raise();
-    }*/
-}
-
-void MainWindow::closeEvent(QCloseEvent *event) {
-    QApplication::quit();
-}
-
-void MainWindow::refreshList() {
-    int currentIndex = 0;
-    if(list->count()!=0) currentIndex = list->currentRow();
-    setDir(dir->absolutePath());
-    if(currentIndex>=list->count()) {
-        list->setCurrentRow(list->count()-1);
-    } else list->setCurrentRow(currentIndex);
-}
-
-void MainWindow::setStatus(QString stat) {
-    status->showMessage(stat);
 }

@@ -47,6 +47,7 @@
             void selectDir();
             void setDir(QString);
             void setImage();
+            void processKeyEvent(QKeyEvent*);
 
         signals:
 
