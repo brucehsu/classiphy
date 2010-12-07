@@ -178,7 +178,7 @@ void MainWindow::processKeyEvent(QKeyEvent *event) {
                 bool isOk = false;
                 QString newName = QInputDialog::getText(this,QObject::trUtf8("Renaming ") + list->currentItem()->text(),
                                                         QObject::trUtf8("Please input a new file name: ") ,
-                                                        QLineEdit::Normal,list->item(list->currentRow())->text(),&isOk);
+                                                        QLineEdit::Normal,list->currentItem()->text(),&isOk);
                 if(isOk) {
                     QFile::rename(dir->absolutePath()+"/" + list->currentItem()->text(),dir->absolutePath()+"/"+newName);
                     refreshList();
@@ -211,48 +211,48 @@ void MainWindow::processKeyEvent(QKeyEvent *event) {
         //pressing Alt + num / num only
         //copy file / move file
         case Qt::Key_1 :
-            if(event->modifiers()==Qt::AltModifier || event->modifiers()==(Qt::AltModifier | Qt::KeypadModifier)) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),0);
-            else foldersWindow->moveFile(dir->absolutePath(),list->item(list->currentRow())->text(),0);
+            if(event->modifiers()==Qt::AltModifier || event->modifiers()==(Qt::AltModifier | Qt::KeypadModifier)) foldersWindow->copyFile(dir->absolutePath(),list->currentItem()->text(),0);
+            else foldersWindow->moveFile(dir->absolutePath(),list->currentItem()->text(),0);
             refreshList();
             break;
         case Qt::Key_2 :
-            if(event->modifiers()==Qt::AltModifier || event->modifiers()==(Qt::AltModifier | Qt::KeypadModifier)) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),1);
-            else foldersWindow->moveFile(dir->absolutePath(),list->item(list->currentRow())->text(),1);
+            if(event->modifiers()==Qt::AltModifier || event->modifiers()==(Qt::AltModifier | Qt::KeypadModifier)) foldersWindow->copyFile(dir->absolutePath(),list->currentItem()->text(),1);
+            else foldersWindow->moveFile(dir->absolutePath(),list->currentItem()->text(),1);
             refreshList();
             break;
         case Qt::Key_3 :
-            if(event->modifiers()==Qt::AltModifier || event->modifiers()==(Qt::AltModifier | Qt::KeypadModifier)) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),2);
-            else foldersWindow->moveFile(dir->absolutePath(),list->item(list->currentRow())->text(),2);
+            if(event->modifiers()==Qt::AltModifier || event->modifiers()==(Qt::AltModifier | Qt::KeypadModifier)) foldersWindow->copyFile(dir->absolutePath(),list->currentItem()->text(),2);
+            else foldersWindow->moveFile(dir->absolutePath(),list->currentItem()->text(),2);
             refreshList();
             break;
         case Qt::Key_4 :
-            if(event->modifiers()==Qt::AltModifier || event->modifiers()==(Qt::AltModifier | Qt::KeypadModifier)) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),3);
-            else foldersWindow->moveFile(dir->absolutePath(),list->item(list->currentRow())->text(),3);
+            if(event->modifiers()==Qt::AltModifier || event->modifiers()==(Qt::AltModifier | Qt::KeypadModifier)) foldersWindow->copyFile(dir->absolutePath(),list->currentItem()->text(),3);
+            else foldersWindow->moveFile(dir->absolutePath(),list->currentItem()->text(),3);
             refreshList();
             break;
         case Qt::Key_5 :
-            if(event->modifiers()==Qt::AltModifier || event->modifiers()==(Qt::AltModifier | Qt::KeypadModifier)) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),4);
-            else foldersWindow->moveFile(dir->absolutePath(),list->item(list->currentRow())->text(),4);
+            if(event->modifiers()==Qt::AltModifier || event->modifiers()==(Qt::AltModifier | Qt::KeypadModifier)) foldersWindow->copyFile(dir->absolutePath(),list->currentItem()->text(),4);
+            else foldersWindow->moveFile(dir->absolutePath(),list->currentItem()->text(),4);
             refreshList();
             break;
         case Qt::Key_6 :
-            if(event->modifiers()==Qt::AltModifier || event->modifiers()==(Qt::AltModifier | Qt::KeypadModifier)) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),5);
-            else foldersWindow->moveFile(dir->absolutePath(),list->item(list->currentRow())->text(),5);
+            if(event->modifiers()==Qt::AltModifier || event->modifiers()==(Qt::AltModifier | Qt::KeypadModifier)) foldersWindow->copyFile(dir->absolutePath(),list->currentItem()->text(),5);
+            else foldersWindow->moveFile(dir->absolutePath(),list->currentItem()->text(),5);
             refreshList();
             break;
         case Qt::Key_7 :
-            if(event->modifiers()==Qt::AltModifier || event->modifiers()==(Qt::AltModifier | Qt::KeypadModifier)) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),6);
-            else foldersWindow->moveFile(dir->absolutePath(),list->item(list->currentRow())->text(),6);
+            if(event->modifiers()==Qt::AltModifier || event->modifiers()==(Qt::AltModifier | Qt::KeypadModifier)) foldersWindow->copyFile(dir->absolutePath(),list->currentItem()->text(),6);
+            else foldersWindow->moveFile(dir->absolutePath(),list->currentItem()->text(),6);
             refreshList();
             break;
         case Qt::Key_8 :
-            if(event->modifiers()==Qt::AltModifier || event->modifiers()==(Qt::AltModifier | Qt::KeypadModifier)) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),7);
-            else foldersWindow->moveFile(dir->absolutePath(),list->item(list->currentRow())->text(),7);
+            if(event->modifiers()==Qt::AltModifier || event->modifiers()==(Qt::AltModifier | Qt::KeypadModifier)) foldersWindow->copyFile(dir->absolutePath(),list->currentItem()->text(),7);
+            else foldersWindow->moveFile(dir->absolutePath(),list->currentItem()->text(),7);
             refreshList();
             break;
         case Qt::Key_9 :
-            if(event->modifiers()==Qt::AltModifier || event->modifiers()==(Qt::AltModifier | Qt::KeypadModifier)) foldersWindow->copyFile(dir->absolutePath(),list->item(list->currentRow())->text(),8);
-            else foldersWindow->moveFile(dir->absolutePath(),list->item(list->currentRow())->text(),8);
+            if(event->modifiers()==Qt::AltModifier || event->modifiers()==(Qt::AltModifier | Qt::KeypadModifier)) foldersWindow->copyFile(dir->absolutePath(),list->currentItem()->text(),8);
+            else foldersWindow->moveFile(dir->absolutePath(),list->currentItem()->text(),8);
             refreshList();
             break;
 
