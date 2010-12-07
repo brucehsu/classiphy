@@ -190,49 +190,22 @@ void MainWindow::processKeyEvent(QKeyEvent *event) {
         case Qt::Key_M:
             if(event->modifiers()==Qt::NoModifier) { // pressing M
                 //Move current file
-                QFileDialog* moveFileDlg = new QFileDialog(this,QObject::trUtf8("Move to..."),this->dir->absolutePath(),QObject::trUtf8("Images") + " (*.jpeg *.tiff *.jpg *.gif *.png)");
-                moveFileDlg->setFileMode(QFileDialog::AnyFile);
-                moveFileDlg->selectFile(dir->absolutePath()+ "/" +list->item(list->currentRow())->text());
-                moveFileDlg->setAcceptMode(QFileDialog::AcceptSave);
-                while(true) {
-                    if(moveFileDlg->exec()==QDialog::Accepted) {
-                        QString path = moveFileDlg->selectedFiles().at(0);
-                        if(path!=NULL) {
-                            QFileInfo info(path);
-                            if(info.exists()) {
-                                QMessageBox message(QMessageBox::Warning, QObject::trUtf8("Selected file exists"),
-                                                    QObject::trUtf8("Do you want to replace it?"), QMessageBox::Yes | QMessageBox::No , this);
-                                if(message.exec()==QMessageBox::No) continue;
-                            }
-                            foldersWindow->getFileManager()->moveFileToFolder(dir->absolutePath(),list->item(list->currentRow())->text(),info.absoluteDir().absolutePath(),info.fileName());
-                        }
-                    }
-                    break;
+                QString fileName = QFileDialog::getSaveFileName(this, QObject::trUtf8("Move to...") ,
+                                           dir->absolutePath() + "/" + list->currentItem()->text(),
+                                           QObject::trUtf8("Images") + " (*.jpeg *.tiff *.jpg *.gif *.png)");
+                if(fileName!=0) {
+                    foldersWindow->getFileManager()->moveFileToFolder(dir->absolutePath(),list->currentItem()->text(),fileName.left(fileName.lastIndexOf("/")),fileName.right(fileName.length() - fileName.lastIndexOf("/")));
+                    refreshList();
                 }
-                delete moveFileDlg;
-                refreshList();
             } else if(event->modifiers()==Qt::AltModifier) { // pressing Alt+M
                 //Copy current file
-                QFileDialog* copyFileDlg = new QFileDialog(this,QObject::trUtf8("Copy to..."),this->dir->absolutePath(),QObject::trUtf8("Images") + " (*.jpeg *.tiff *.jpg *.gif *.png)");
-                copyFileDlg->setFileMode(QFileDialog::AnyFile);
-                copyFileDlg->selectFile(dir->absolutePath()+ "/" +list->item(list->currentRow())->text());
-                copyFileDlg->setAcceptMode(QFileDialog::AcceptSave);
-                while(true) {
-                    if(copyFileDlg->exec()==QDialog::Accepted) {
-                        QString path = copyFileDlg->selectedFiles().at(0);
-                        if(path!=NULL) {
-                            QFileInfo info(path);
-                            if(info.exists()) {
-                                QMessageBox message(QMessageBox::Warning, QObject::trUtf8("Selected file exists"),
-                                                    QObject::trUtf8("Do you want to replace it?"), QMessageBox::Yes | QMessageBox::No , this);
-                                if(message.exec()==QMessageBox::No) continue;
-                            }
-                            foldersWindow->getFileManager()->copyFileToFolder(dir->absolutePath(),list->item(list->currentRow())->text(),info.absoluteDir().absolutePath(),info.fileName());
-                        }
-                    }
-                    break;
+                QString fileName = QFileDialog::getSaveFileName(this, QObject::trUtf8("Copy to...") ,
+                                           dir->absolutePath() + "/" + list->currentItem()->text(),
+                                           QObject::trUtf8("Images") + " (*.jpeg *.tiff *.jpg *.gif *.png)");
+                if(fileName!=0) {
+                    foldersWindow->getFileManager()->copyFileToFolder(dir->absolutePath(),list->currentItem()->text(),fileName.left(fileName.lastIndexOf("/")),fileName.right(fileName.length() - fileName.lastIndexOf("/")));
+                    refreshList();
                 }
-                delete copyFileDlg;
             }
             break;
 
