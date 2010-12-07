@@ -56,7 +56,7 @@ MainWindow::MainWindow() {
 
 void MainWindow::selectDir() {
     QString path = QFileDialog::getExistingDirectory(this, QObject::trUtf8("Select a folder"),
-                                                     dir->currentPath()==NULL ? QDir::currentPath() : dir->currentPath(),
+                                                     dir->currentPath()==NULL ? QDir::currentPath() : dir->absolutePath(),
                                                      QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     if(path!=NULL) {
         this->setDir(path);
