@@ -147,10 +147,6 @@ void MainWindow::processKeyEvent(QKeyEvent *event) {
         //Switch current profile to next profile
         foldersWindow->setNextProfile();
         return;
-    } else if(event->key()==Qt::Key_R) { // pressing R//Refresh current directory
-        //Refresh current directory
-        refreshList();
-        return;
     }
 
     if(list->count()==0) return;
@@ -174,14 +170,17 @@ void MainWindow::processKeyEvent(QKeyEvent *event) {
             break;
 
         case Qt::Key_R:
-            if(event->modifiers()==Qt::AltModifier) { // pressing Alt+R
+            if(event->modifiers()==Qt::NoModifier) { // pressing R
+                //Refresh current directory
+                refreshList();
+            } else if(event->modifiers()==Qt::AltModifier) { // pressing Alt+R
                 //Rename current selected file
                 bool isOk = false;
-                QString newName = QInputDialog::getText(this,QObject::trUtf8("Renaming ") + list->item(list->currentRow())->text(),
+                QString newName = QInputDialog::getText(this,QObject::trUtf8("Renaming ") + list->currentItem()->text(),
                                                         QObject::trUtf8("Please input a new file name: ") ,
                                                         QLineEdit::Normal,list->item(list->currentRow())->text(),&isOk);
                 if(isOk) {
-                    QFile::rename(dir->absolutePath()+"/"+list->item(list->currentRow())->text(),dir->absolutePath()+"/"+newName);
+                    QFile::rename(dir->absolutePath()+"/" + list->currentItem()->text(),dir->absolutePath()+"/"+newName);
                     refreshList();
                 }
             }
