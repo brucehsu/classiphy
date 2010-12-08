@@ -6,7 +6,7 @@ FolderSettingDialog::FolderSettingDialog(QObject *parentw, XMLSettingsManager* m
     parentWindow = parentw;
     selectDestLabel = new QLabel(QObject::trUtf8("Select Destination"));
     selectThumbLabel = new QLabel(QObject::trUtf8("Select Thumbnail"));
-    renameLabel = new QLabel(QObject::trUtf8("File name"));
+    renameLabel = new QLabel(QObject::trUtf8("File prefix"));
     digitsLabel = new QLabel(QObject::trUtf8("Digits"));
     selectDestBtn = new QPushButton("...");
     selectThumbBtn = new QPushButton("...");

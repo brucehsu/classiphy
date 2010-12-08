@@ -16,7 +16,7 @@ AboutDialog::AboutDialog() {
     infoLabel->setAlignment(Qt::AlignHCenter);
     infoLabel->setTextFormat(Qt::RichText);
     infoLabel->setText("classiPHy v" + version + "<br />"
-                       + QObject::trUtf8("Developed by ") + authurs +
+                       + QObject::trUtf8("Developers: ") + authurs +
                        + "<br /><a href=\"" + website + "\">" + website + "</a>");
     okBtn->setMaximumWidth(90);
 

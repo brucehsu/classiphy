@@ -10,7 +10,7 @@ QTPLUGIN += qjpeg \
     qgif \
     qtiff
 TEMPLATE = app
-TRANSLATIONS += classiPHy_lang.ts
+TRANSLATIONS += classiphy_zh_TW.ts
 SOURCES += main.cpp \
     mainwindow.cpp \
     nosearchlist.cpp \
@@ -33,4 +33,7 @@ HEADERS += mainwindow.h \
     foldersettingdialog.h \
     profilelistdialog.h \
     filemanager.h
-OTHER_FILES += classiPHy_lang.ts
+OTHER_FILES += classiphy_zh_TW.ts
+
+RESOURCES += \
+    resource.qrc
