@@ -78,6 +78,7 @@ void FolderSettingDialog::show(int num) {
     QString path = xmlManager->getProfileDirPath()->at(num);
     QFileInfo *info = new QFileInfo(path);
     destEdit->setText(path);
+    thumbEdit->setText("");
 
     if(xmlManager->getProfileDirThumb()->at(num)!="") {
         QFileInfo *thumbInfo = new QFileInfo(xmlManager->getProfileDirThumb()->at(num));
