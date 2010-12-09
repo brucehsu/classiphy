@@ -27,6 +27,7 @@ ProfileListDialog::ProfileListDialog(QObject *parentw,XMLSettingsManager* manage
     xmlManager = manager;
 
     refreshProfileList();
+    profileList->setCurrentRow(0);
 
     this->setLayout(layout);
     this->setWindowTitle(QObject::trUtf8("Manage Profiles"));
@@ -67,9 +68,10 @@ void ProfileListDialog::deleteProfile() {
 }
 
 void ProfileListDialog::refreshProfileList() {
+    int oldRow = profileList->currentRow();
     profileList->clear();
     profileList->addItems(xmlManager->getProfiles());
-    profileList->setCurrentRow(0);
+    profileList->setCurrentRow((profileList->count() <= oldRow ? profileList->count()-1 : oldRow));
     deleteBtn->setEnabled(true);
     if(profileList->count()==1) deleteBtn->setEnabled(false);
 }
