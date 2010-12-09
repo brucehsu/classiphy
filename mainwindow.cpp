@@ -56,7 +56,7 @@ MainWindow::MainWindow() {
 
 void MainWindow::selectDir() {
     QString path = QFileDialog::getExistingDirectory(this, QObject::trUtf8("Select a folder"),
-                                                     dir->currentPath()==NULL ? QDir::currentPath() : dir->absolutePath(),
+                                                     dir->absolutePath()==NULL ? QDir::currentPath() : dir->absolutePath(),
                                                      QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     if(path!=NULL) {
         this->setDir(path);
@@ -77,7 +77,7 @@ void MainWindow::setDir(QString dirname) {
     image->clearImage();
     list->addItems(items);
     list->setCurrentRow(0);
-    this->setWindowTitle("classiPHy v" + version + " - " + dir->currentPath());
+    this->setWindowTitle("classiPHy v" + version + " - " + dir->absolutePath());
 }
 
 void MainWindow::setImage() {
