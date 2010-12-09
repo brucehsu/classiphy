@@ -5,6 +5,10 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QTabWidget>
+#include <QTextEdit>
+#include <QWidget>
+#include <QFile>
 
 class AboutDialog : public QDialog
 {
@@ -18,6 +22,9 @@ class AboutDialog : public QDialog
         QVBoxLayout *layout;
         QLabel *infoLabel;
         QPushButton *okBtn;
+        QTabWidget *tab;
+        QWidget *infoPane, *licensePane;
+        QTextEdit *licenseEdit;
 
     public slots:
         void accept();

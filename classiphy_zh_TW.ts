@@ -10,12 +10,17 @@
     </message>
     <message>
         <location filename="aboutdialog.cpp" line="19"/>
-        <source>Developers: </source>
-        <oldsource>Developed by </oldsource>
-        <translation type="unfinished">開發者:</translation>
+        <source>Licensed under General Public License Version 2</source>
+        <translation type="unfinished">以 General Public License Version 2 授權</translation>
     </message>
     <message>
-        <location filename="aboutdialog.cpp" line="29"/>
+        <location filename="aboutdialog.cpp" line="20"/>
+        <source>Developers: </source>
+        <oldsource>Developed by </oldsource>
+        <translation type="unfinished">開發者: </translation>
+    </message>
+    <message>
+        <location filename="aboutdialog.cpp" line="30"/>
         <location filename="mainwindow.cpp" line="10"/>
         <source>About</source>
         <translation type="unfinished">關於</translation>
@@ -28,7 +33,7 @@
     </message>
     <message>
         <location filename="foldersettingdialog.cpp" line="8"/>
-        <location filename="foldersettingdialog.cpp" line="158"/>
+        <location filename="foldersettingdialog.cpp" line="159"/>
         <source>Select Thumbnail</source>
         <translation type="unfinished">選擇縮圖</translation>
     </message>
@@ -74,7 +79,7 @@
         <translation type="unfinished">資料夾設定</translation>
     </message>
     <message>
-        <location filename="foldersettingdialog.cpp" line="160"/>
+        <location filename="foldersettingdialog.cpp" line="162"/>
         <location filename="mainwindow.cpp" line="194"/>
         <location filename="mainwindow.cpp" line="203"/>
         <source>Images</source>
@@ -95,17 +100,17 @@
         <location filename="folderswindow.cpp" line="96"/>
         <location filename="folderswindow.cpp" line="115"/>
         <source>Error: empty destination.</source>
-        <translation type="unfinished">錯誤：空的目的資料夾</translation>
+        <translation type="unfinished">錯誤: 空的目的資料夾</translation>
     </message>
     <message>
         <location filename="folderswindow.cpp" line="108"/>
         <source> has been moved to </source>
-        <translation type="unfinished">已被移動到</translation>
+        <translation type="unfinished"> 已被移動到 </translation>
     </message>
     <message>
         <location filename="folderswindow.cpp" line="127"/>
         <source> has been copied to </source>
-        <translation type="unfinished">已被複製到</translation>
+        <translation type="unfinished"> 已被複製到 </translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="7"/>
@@ -168,37 +173,37 @@
         <translation type="unfinished">完成</translation>
     </message>
     <message>
-        <location filename="profilelistdialog.cpp" line="32"/>
+        <location filename="profilelistdialog.cpp" line="33"/>
         <source>Manage Profiles</source>
         <translation type="unfinished">管理設定檔</translation>
     </message>
     <message>
-        <location filename="profilelistdialog.cpp" line="39"/>
+        <location filename="profilelistdialog.cpp" line="40"/>
         <source>Add Profile</source>
         <translation type="unfinished">新增設定檔</translation>
     </message>
     <message>
-        <location filename="profilelistdialog.cpp" line="40"/>
+        <location filename="profilelistdialog.cpp" line="41"/>
         <source>Input the name of the new profile:</source>
         <translation type="unfinished">請輸入設定檔名: </translation>
     </message>
     <message>
-        <location filename="profilelistdialog.cpp" line="50"/>
+        <location filename="profilelistdialog.cpp" line="51"/>
         <source>Edit Profile</source>
         <translation type="unfinished">編輯設定檔</translation>
     </message>
     <message>
-        <location filename="profilelistdialog.cpp" line="51"/>
+        <location filename="profilelistdialog.cpp" line="52"/>
         <source>Input a new name for the profile:</source>
         <translation type="unfinished">請輸入設定檔名:</translation>
     </message>
     <message>
-        <location filename="profilelistdialog.cpp" line="60"/>
+        <location filename="profilelistdialog.cpp" line="61"/>
         <source>Delete Profile</source>
         <translation type="unfinished">刪除設定檔</translation>
     </message>
     <message>
-        <location filename="profilelistdialog.cpp" line="61"/>
+        <location filename="profilelistdialog.cpp" line="62"/>
         <source>Do you really want to delete this profile?</source>
         <translation type="unfinished">您確定要刪除此設定檔？</translation>
     </message>
