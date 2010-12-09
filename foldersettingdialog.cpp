@@ -147,7 +147,8 @@ void FolderSettingDialog::setDestZipMode(bool isZip) {
 
 void FolderSettingDialog::selectDest() {
     QString path = QFileDialog::getExistingDirectory(this, QObject::trUtf8("Select Destination"),
-                                                     destEdit->text()==NULL ? QDir::currentPath() : destEdit->text(),
+                                                     destEdit->text()==NULL ? (thumbEdit->text()==NULL ? QDir::currentPath() : thumbEdit->text())
+                                                         : destEdit->text(),
                                                      QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     if(path!=NULL) {
         this->setDest(path);
@@ -156,7 +157,8 @@ void FolderSettingDialog::selectDest() {
 
 void FolderSettingDialog::selectThumb() {
     QString path = QFileDialog::getOpenFileName(this, QObject::trUtf8("Select Thumbnail"),
-                                                     thumbEdit->text()==NULL ? QDir::currentPath() : thumbEdit->text(),
+                                                    thumbEdit->text()==NULL ? (destEdit->text()==NULL ? QDir::currentPath() : destEdit->text())
+                                                        : thumbEdit->text(),
                                                      (QObject::trUtf8("Images") + " (*.jpeg *.tiff *.jpg *.gif *.png)"),0,
                                                      QFileDialog::ReadOnly);
     if(path!=NULL) {
