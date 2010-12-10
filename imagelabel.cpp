@@ -1,8 +1,10 @@
 #include "imagelabel.h"
 
+#ifdef STATIC
 Q_IMPORT_PLUGIN(qjpeg)
 Q_IMPORT_PLUGIN(qtiff)
 Q_IMPORT_PLUGIN(qgif)
+#endif
 
 ImageLabel::ImageLabel() {
     isThumbnail = true;

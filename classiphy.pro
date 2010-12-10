@@ -5,10 +5,13 @@ QT += xml
 TARGET = classiphy
 CONFIG -= app_bundle
 CONFIG += moc
-CONFIG += static
-QTPLUGIN += qjpeg \
-    qgif \
-    qtiff
+win32 {
+	CONFIG += static
+	DEFINES += STATIC
+	QTPLUGIN += qjpeg \
+	    qgif \
+	    qtiff
+}
 TEMPLATE = app
 TRANSLATIONS += classiphy_zh_TW.ts
 SOURCES += main.cpp \
