@@ -5,6 +5,7 @@ QT += xml
 TARGET = classiphy
 CONFIG -= app_bundle
 CONFIG += moc
+
 win32 {
 	CONFIG += static
 	DEFINES += STATIC
@@ -12,6 +13,17 @@ win32 {
 	    qgif \
 	    qtiff
 }
+
+unix {
+    isEmpty(PREFIX) {
+        PREFIX = /usr/local
+    }
+    BINDIR = $$PREFIX/bin
+
+    INSTALLS += target
+    target.path = $$BINDIR
+}
+
 TEMPLATE = app
 TRANSLATIONS += classiphy_zh_TW.ts
 SOURCES += main.cpp \
