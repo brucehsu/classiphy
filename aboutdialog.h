@@ -23,7 +23,6 @@ class AboutDialog : public QDialog
         QLabel *infoLabel;
         QPushButton *okBtn;
         QTabWidget *tab;
-        QWidget *infoPane, *licensePane;
         QTextEdit *licenseEdit;
 
     public slots:
