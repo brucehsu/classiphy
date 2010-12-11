@@ -3,7 +3,14 @@
 
 XMLSettingsManager::XMLSettingsManager() {
     //Initialize objects
-    docFile = new QFile("folder_settings.xml");
+    QString profilePath("folder_settings.xml");
+#ifdef PERSONAL_PROFILE
+    QDir home(QDir::homePath());
+    home.mkdir(".classiphy");
+    profilePath.insert(0,QDir::homePath() + "/.classiphy/");
+#endif
+
+    docFile = new QFile(profilePath);
     xmlDoc = new QDomDocument();
     paths = new QStringList();
     thumbs = new QStringList();
@@ -17,7 +24,7 @@ XMLSettingsManager::XMLSettingsManager() {
     QDomElement e = xmlDoc->firstChildElement();
     QDomNode node = e.firstChild();
     delete docFile;
-    docFile = new QFile("folder_settings.xml");
+    docFile = new QFile(profilePath);
 
 
     //Create document if it's an empty document.

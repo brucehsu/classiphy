@@ -4,6 +4,7 @@
 #include <QDomDocument>
 #include <QDomElement>
 #include <QFile>
+#include <QDir>
 #include <QTextStream>
 #include <QStringList>
 
