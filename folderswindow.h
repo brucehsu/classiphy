@@ -12,6 +12,11 @@
 #include "profilelistdialog.h"
 #include "filemanager.h"
 
+const QString folderBtnDefault("QPushButton{"
+                                 "font: bold 48px;}");
+const QString folderBtnPath("QPushButton{}");
+
+
 class FoldersWindow : public QWidget
 {
     Q_OBJECT

@@ -16,9 +16,10 @@ FoldersWindow::FoldersWindow() {
     profilesCombo->setEditable(false);
     this->refreshProfiles();
     for(int i=0;i<9;i++) {
-        folderBtns[i]->setText(QString::number(i+1)+":");
+        folderBtns[i]->setText(QString::number(i+1));
         folderBtns[i]->setIconSize(QSize(80,80));
         folderBtns[i]->setFixedSize(100,100);
+        folderBtns[i]->setStyleSheet(folderBtnDefault);
     }
     getProfileDataByIndex(0);
 
@@ -67,11 +68,15 @@ void FoldersWindow::refreshFolders() {
                 QDir *tempDir = new QDir(paths->at(i));
                 QString temp = tempDir->dirName();
                 folderBtns[i]->setText(temp);
+                folderBtns[i]->setStyleSheet(folderBtnPath);
+                delete tempDir;
             } else {
                 folderBtns[i]->setText(info->fileName());
             }
+            delete info;
         } else {
-            folderBtns[i]->setText("");
+            folderBtns[i]->setText(QString::number(i+1));
+            folderBtns[i]->setStyleSheet(folderBtnDefault);
         }
         if(thumbs->at(i)!="") {
             QPixmap pixtemp = QPixmap();
