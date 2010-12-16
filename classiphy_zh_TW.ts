@@ -98,7 +98,7 @@
     <message>
         <location filename="folderswindow.cpp" line="8"/>
         <source>Edit Profiles</source>
-        <translation type="unfinished">編輯設定檔</translation>
+        <translation type="unfinished">編輯設定組</translation>
     </message>
     <message>
         <location filename="folderswindow.cpp" line="50"/>
@@ -201,37 +201,37 @@
     <message>
         <location filename="profilelistdialog.cpp" line="33"/>
         <source>Manage Profiles</source>
-        <translation type="unfinished">管理設定檔</translation>
+        <translation type="unfinished">管理設定組</translation>
     </message>
     <message>
         <location filename="profilelistdialog.cpp" line="40"/>
         <source>Add Profile</source>
-        <translation type="unfinished">新增設定檔</translation>
+        <translation type="unfinished">新增設定組</translation>
     </message>
     <message>
         <location filename="profilelistdialog.cpp" line="41"/>
         <source>Input the name of the new profile:</source>
-        <translation type="unfinished">請輸入設定檔名: </translation>
+        <translation type="unfinished">請輸入設定組名稱: </translation>
     </message>
     <message>
         <location filename="profilelistdialog.cpp" line="51"/>
         <source>Edit Profile</source>
-        <translation type="unfinished">編輯設定檔</translation>
+        <translation type="unfinished">編輯設定組</translation>
     </message>
     <message>
         <location filename="profilelistdialog.cpp" line="52"/>
         <source>Input a new name for the profile:</source>
-        <translation type="unfinished">請輸入設定檔名:</translation>
+        <translation type="unfinished">請輸入設定組名稱:</translation>
     </message>
     <message>
         <location filename="profilelistdialog.cpp" line="61"/>
         <source>Delete Profile</source>
-        <translation type="unfinished">刪除設定檔</translation>
+        <translation type="unfinished">刪除設定組</translation>
     </message>
     <message>
         <location filename="profilelistdialog.cpp" line="62"/>
         <source>Do you really want to delete this profile?</source>
-        <translation type="unfinished">您確定要刪除此設定檔？</translation>
+        <translation type="unfinished">您確定要刪除此設定組？</translation>
     </message>
 </context>
 </TS>
