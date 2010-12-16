@@ -4,23 +4,33 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="aboutdialog.cpp" line="9"/>
+        <location filename="aboutdialog.cpp" line="10"/>
         <source>Ok</source>
         <translation type="unfinished">確定</translation>
     </message>
     <message>
-        <location filename="aboutdialog.cpp" line="19"/>
+        <location filename="aboutdialog.cpp" line="21"/>
         <source>Licensed under General Public License Version 2</source>
         <translation type="unfinished">以 General Public License Version 2 授權</translation>
     </message>
     <message>
-        <location filename="aboutdialog.cpp" line="20"/>
+        <location filename="aboutdialog.cpp" line="22"/>
         <source>Developers: </source>
         <oldsource>Developed by </oldsource>
         <translation type="unfinished">開發者: </translation>
     </message>
     <message>
-        <location filename="aboutdialog.cpp" line="30"/>
+        <location filename="aboutdialog.cpp" line="32"/>
+        <source>Info</source>
+        <translation type="unfinished">資訊</translation>
+    </message>
+    <message>
+        <location filename="aboutdialog.cpp" line="33"/>
+        <source>License</source>
+        <translation type="unfinished">授權</translation>
+    </message>
+    <message>
+        <location filename="aboutdialog.cpp" line="43"/>
         <location filename="mainwindow.cpp" line="10"/>
         <source>About</source>
         <translation type="unfinished">關於</translation>
@@ -80,8 +90,8 @@
     </message>
     <message>
         <location filename="foldersettingdialog.cpp" line="162"/>
-        <location filename="mainwindow.cpp" line="194"/>
-        <location filename="mainwindow.cpp" line="203"/>
+        <location filename="mainwindow.cpp" line="201"/>
+        <location filename="mainwindow.cpp" line="210"/>
         <source>Images</source>
         <translation type="unfinished">圖片</translation>
     </message>
@@ -91,26 +101,42 @@
         <translation type="unfinished">編輯設定檔</translation>
     </message>
     <message>
-        <location filename="folderswindow.cpp" line="48"/>
+        <location filename="folderswindow.cpp" line="50"/>
         <location filename="mainwindow.cpp" line="8"/>
         <source>Folders Window</source>
         <translation type="unfinished">資料夾視窗</translation>
     </message>
     <message>
-        <location filename="folderswindow.cpp" line="96"/>
-        <location filename="folderswindow.cpp" line="115"/>
+        <location filename="folderswindow.cpp" line="102"/>
+        <location filename="folderswindow.cpp" line="121"/>
         <source>Error: empty destination.</source>
         <translation type="unfinished">錯誤: 空的目的資料夾</translation>
     </message>
     <message>
-        <location filename="folderswindow.cpp" line="108"/>
+        <location filename="folderswindow.cpp" line="114"/>
         <source> has been moved to </source>
         <translation type="unfinished"> 已被移動到 </translation>
     </message>
     <message>
-        <location filename="folderswindow.cpp" line="127"/>
+        <location filename="folderswindow.cpp" line="133"/>
         <source> has been copied to </source>
         <translation type="unfinished"> 已被複製到 </translation>
+    </message>
+    <message>
+        <location filename="folderswindow.cpp" line="183"/>
+        <location filename="folderswindow.cpp" line="188"/>
+        <source>Button Layout: </source>
+        <translation type="unfinished">按鍵佈局: </translation>
+    </message>
+    <message>
+        <location filename="folderswindow.cpp" line="183"/>
+        <source>Numpad</source>
+        <translation type="unfinished">數字鍵盤</translation>
+    </message>
+    <message>
+        <location filename="folderswindow.cpp" line="188"/>
+        <source>General</source>
+        <translation type="unfinished">一般佈局</translation>
     </message>
     <message>
         <location filename="mainwindow.cpp" line="7"/>
@@ -128,27 +154,27 @@
         <translation type="unfinished">請選擇資料夾</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="163"/>
+        <location filename="mainwindow.cpp" line="170"/>
         <source>Deleting File: </source>
         <translation type="unfinished">準備刪除檔案: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="179"/>
+        <location filename="mainwindow.cpp" line="186"/>
         <source>Renaming </source>
         <translation type="unfinished">準備重新命名 </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="180"/>
+        <location filename="mainwindow.cpp" line="187"/>
         <source>Please input a new file name: </source>
         <translation type="unfinished">請輸入新的檔名: </translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="192"/>
+        <location filename="mainwindow.cpp" line="199"/>
         <source>Move to...</source>
         <translation type="unfinished">移動到...</translation>
     </message>
     <message>
-        <location filename="mainwindow.cpp" line="201"/>
+        <location filename="mainwindow.cpp" line="208"/>
         <source>Copy to...</source>
         <translation type="unfinished">複製到...</translation>
     </message>

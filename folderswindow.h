@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QGridLayout>
 #include <QDir>
+#include <QLabel>
 #include "xmlsettingsmanager.h"
 #include "folderbutton.h"
 #include "foldersettingdialog.h"
@@ -29,11 +30,13 @@ class FoldersWindow : public QWidget
         void setParent(QWidget *par);
         void setPrevProfile();
         void setNextProfile();
+        void toggleLayout();
         FileManager* getFileManager();
 
     protected:
 
     private:
+        void changeLayout();
         QGridLayout *layout;
         QComboBox *profilesCombo;
         QPushButton *editProfileBtn;
@@ -44,6 +47,8 @@ class FoldersWindow : public QWidget
         ProfileListDialog *profileDlg;
         FileManager *fileManager;
         QWidget* parent;
+        QLabel *btnLayoutLabel;
+        bool isNumpad;
 
     public slots:
         void getProfileDataByIndex(int);

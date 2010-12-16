@@ -11,6 +11,7 @@ FoldersWindow::FoldersWindow() {
     settingDlg = new FolderSettingDialog(this,xmlManager);
     profileDlg = new ProfileListDialog(this,xmlManager);
     fileManager = new FileManager();
+    btnLayoutLabel = new QLabel();
 
     //Set objects up
     profilesCombo->setEditable(false);
@@ -22,16 +23,16 @@ FoldersWindow::FoldersWindow() {
         folderBtns[i]->setStyleSheet(folderBtnDefault);
     }
     getProfileDataByIndex(0);
+    btnLayoutLabel->setAlignment(Qt::AlignRight);
+    isNumpad = false;
 
     //Arrange layout
     layout->setAlignment(Qt::AlignCenter);
     layout->addWidget(profilesCombo,0,0,1,2);
+    changeLayout();
     layout->addWidget(editProfileBtn,0,2,1,1);
-    for(int i=0;i<9;i++) {
-        layout->addWidget(folderBtns[i],i/3+1,i%3,1,1);
-    }
     layout->setRowStretch(0,1);
-    layout->setSpacing(2);
+    layout->setSpacing(1);
 
     //Connect slots and signals
     QObject::connect(profilesCombo,SIGNAL(currentIndexChanged(int)),this,SLOT(getProfileDataByIndex(int)));
@@ -45,7 +46,7 @@ FoldersWindow::FoldersWindow() {
     this->setLayout(layout);
     this->setWindowFlags(Qt::X11BypassWindowManagerHint);
     this->setWindowFlags(Qt::WindowStaysOnTopHint);
-    this->setFixedSize(315,340);
+    this->setFixedSize(315,370);
     this->setWindowTitle(QObject::trUtf8("Folders Window"));
 }
 
@@ -165,4 +166,26 @@ void FoldersWindow::setNextProfile() {
             profilesCombo->setCurrentIndex(profilesCombo->currentIndex()+1);
         }
     }
+}
+
+void FoldersWindow::toggleLayout() {
+    isNumpad = !isNumpad;
+    changeLayout();
+}
+
+void FoldersWindow::changeLayout() {
+    for(int i=0;i<9;i++) layout->removeWidget(folderBtns[i]);
+    layout->removeWidget(btnLayoutLabel);
+    if(isNumpad) {
+        for(int i=0;i<9;i++) {
+            layout->addWidget(folderBtns[i],(3-i/3),i%3,1,1);
+        }
+        this->btnLayoutLabel->setText(QObject::trUtf8("Button Layout: ") + QObject::trUtf8("Numpad"));
+    } else {
+        for(int i=0;i<9;i++) {
+            layout->addWidget(folderBtns[i],i/3+1,i%3,1,1);
+        }
+        this->btnLayoutLabel->setText(QObject::trUtf8("Button Layout: ") + QObject::trUtf8("General"));
+    }
+    layout->addWidget(btnLayoutLabel,4,0,1,3);
 }

@@ -149,9 +149,16 @@ void MainWindow::processKeyEvent(QKeyEvent *event) {
         return;
     }
 
+    if(event->key()==Qt::Key_L) { //pressing L
+        //Toggle folder button layout
+        foldersWindow->toggleLayout();
+        return;
+    }
+
     if(list->count()==0) return;
 
     switch(event->key()) {
+
         case Qt::Key_T :
             //Switch thumbnail mode on/off.
             image->thumbSwitch();
