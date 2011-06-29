@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/" lang="zh_TW">
+    <qresource prefix="/">
         <file alias="classiphy">classiphy_zh_TW.qm</file>
         <file>LICENSE</file>
     </qresource>
