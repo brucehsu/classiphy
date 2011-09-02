@@ -36,7 +36,8 @@ SOURCES += main.cpp \
     folderbutton.cpp \
     foldersettingdialog.cpp \
     profilelistdialog.cpp \
-    filemanager.cpp
+    filemanager.cpp \
+    nosearchcombobox.cpp
 HEADERS += mainwindow.h \
     const.h \
     nosearchlist.h \
@@ -47,8 +48,11 @@ HEADERS += mainwindow.h \
     folderbutton.h \
     foldersettingdialog.h \
     profilelistdialog.h \
-    filemanager.h
+    filemanager.h \
+    nosearchcombobox.h
 OTHER_FILES += classiphy_zh_TW.ts
 
 RESOURCES += \
     resource.qrc
+
+

@@ -11,7 +11,7 @@ MainWindow::MainWindow() {
     picScroll = new QScrollArea();
     image = new ImageLabel();
     aboutDlg = new AboutDialog();
-    foldersWindow = new FoldersWindow();
+    foldersWindow = new FoldersWindow(this);
     layout = new QGridLayout();
     dir = new QDir();
     status = new QStatusBar(this);

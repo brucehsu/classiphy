@@ -1,10 +1,10 @@
 #include "folderswindow.h"
 #include "mainwindow.h"
 
-FoldersWindow::FoldersWindow() {
+FoldersWindow::FoldersWindow(QWidget *parent) {
     //Initialize objects
     layout = new QGridLayout();
-    profilesCombo = new QComboBox();
+    profilesCombo = new NoSearchComboBox(this);
     editProfileBtn = new QPushButton(QObject::trUtf8("Edit Profiles"));
     for(int i=0;i<9;i++) folderBtns.push_back(new FolderButton(i));
     xmlManager = new XMLSettingsManager();
@@ -43,6 +43,7 @@ FoldersWindow::FoldersWindow() {
         QObject::connect(folderBtns[i],SIGNAL(clicked(int)),settingDlg,SLOT(show(int)));
     }
 
+    this->parent = parent;
     this->setLayout(layout);
     this->setWindowFlags(Qt::X11BypassWindowManagerHint);
     this->setWindowFlags(Qt::WindowStaysOnTopHint);
@@ -188,4 +189,25 @@ void FoldersWindow::changeLayout() {
         this->btnLayoutLabel->setText(QObject::trUtf8("Button Layout: ") + QObject::trUtf8("General"));
     }
     layout->addWidget(btnLayoutLabel,4,0,1,3);
+}
+
+void FoldersWindow::keyPressEvent(QKeyEvent *event) {
+    this->processKeyEvent(event);
+}
+
+void FoldersWindow::processKeyEvent(QKeyEvent *event) {
+    if(event->key()==Qt::Key_Left) { // pressing left
+        //Switch current profile to previous profile
+        this->setPrevProfile();
+        return;
+    } else if(event->key()==Qt::Key_Right) { // pressing right
+        //Switch current profile to next profile
+        this->setNextProfile();
+        return;
+    }
+    if(event->key()==Qt::Key_L) { //pressing L
+        //Toggle folder button layout
+        this->toggleLayout();
+        return;
+    }
 }
