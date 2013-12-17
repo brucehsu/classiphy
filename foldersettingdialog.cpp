@@ -141,7 +141,9 @@ void FolderSettingDialog::setDestFolderMode(bool isFolder) {
 void FolderSettingDialog::setDestZipMode(bool isZip) {
     if(isZip) {
         destDlg->setFileMode(QFileDialog::AnyFile);
-        destDlg->setFilter("*.zip");
+        QStringList filters;
+        filters << "*.zip";
+        destDlg->setNameFilters(filters);
     }
 }
 

@@ -31,7 +31,7 @@ void ImageLabel::setImage(QString path) {
 }
 
 void ImageLabel::clearImage() {
-    this->setPixmap(NULL);
+    this->clear();
     this->resize(0,0);
     filename = "";
 }

@@ -1,7 +1,7 @@
 # -------------------------------------------------
 # Project created by QtCreator 2009-01-26T19:25:06
 # -------------------------------------------------
-QT += xml
+QT += xml widgets
 TARGET = classiphy
 CONFIG -= app_bundle
 CONFIG += moc
